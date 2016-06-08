@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Time waits for no one. —— 《穿梭时空的少女》观后感 - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/10/Time-waits-for-no-one/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#心情" title="心情">心情</a>
+                        
+                          <a class="tag" href="/tags/#日记" title="日记">日记</a>
+                        
+                    </div>
+                    <h1>Time waits for no one. —— 《穿梭时空的少女》观后感</h1>
+                    <h2 class="subheading">Time waits for no one.</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><div id="aplayer0" class="aplayer" style="margin-bottom: 20px;"></div><script>var aplayer0 = new APlayer({element: document.getElementById("aplayer0"),narrow: false,autoplay: true,showlrc: 0,music : {title: "time waits for no one",author: "",url: "/music/time-waits-for-no-one.mp3",pic: "/music/time-waits-for-no-one.png"}});aplayer0.init();</script>
+<p><img src="/img/post-img/03014d26-ce87-11e5-8517-9e1b02bbf16b.png" alt="image"></p>
+<blockquote>
+<p>  Time waits for no one.</p>
+</blockquote>
+<p>有花堪折直须折，莫待无花空折枝。</p>
+<p>女主角绀野因偶然的机会而获得了能够穿梭时空的作弊技能，<del>而且还拥有“怎么跑、怎么跳都不会走光的反重力裙”神级装备</del></p>
+<p>作为一个17岁的少女，尚未沾染上社会的险恶与世故。</p>
+<p>为了吃到布丁 ， 跑！ 跳！施展技能回去吃！</p>
+<p>为了唱k唱久一点，跑！跳！施展技能回去唱！</p>
+<p>为了吃到铁板烧，跑！跳！施展技能回去吃！</p>
+<p>…….</p>
+<p>为了逃避被告白的尴尬场景，跑！跳！施展技能回去逃避！</p>
+<p><img src="/img/post-img/3805d06e-ce87-11e5-8985-15a18a9907a5.png" alt="image"></p>
+<p>挺喜欢这样的设定的。</p>
+<p>正值青春的我们不也是这么莽撞率真吗？想到就做的直爽，还有一往直前的意气奋发，而这个世界是我的，只需要不断向前奔跑，一定就能到达想去的地方。</p>
+<p>未卜先知的力量乍看之下虽为绀野带来不少便利，让她跳脱了现世规则之外。</p>
+<p>暂时得以操弄超然力量来掌控生活周遭瞬息万变的人际关系。</p>
+<p>但人生毕竟不是照著公式来运作，绀野每每遇到自己处理不来的窘境便试图重新回到原点强加以扭转改变，反而却将局势弄得越来越僵。</p>
+<p>显见即使身负绝世超能力，真琴还是逃脱不出青春的因果定律，反倒是更加深陷其中。</p>
+<p> 最喜欢的那一段是绀野发现自己还有一次穿梭时空的机会，她奋力地向前跑，面朝一个城市的灯火辉煌，为着心中的少年而无畏向前。</p>
+<p><img src="/img/post-img/4e2c0d68-ce87-11e5-92cd-e8a6ad40be76.png" alt="image"></p>
+<p> 在时空穿梭间，无数的画面显现，与他相识的过程不断在眼前闪现。他刚刚来到学校的样子，与功介和自己的相识，三个人一起玩耍嬉闹、无忧无虑的时光。</p>
+<p>那些记忆，都在闪闪发光，明明看似那么普普通通微不足道，可又那么令人怀念。</p>
+<p>最后，是三个人一起撑伞的画面，伴着一句曾令自己脸红心跳的话，响彻心头。</p>
+<hr>
+<p>试想，倘若我也用拥有了能够穿梭时空的能力。我会去做什么呢？</p>
+<p>是像女主那样穿梭回去吃布丁？还是像其他人说的那样，穿梭回去买彩票？</p>
+<p>是像女主那样穿梭回去尽兴地唱一次K？还是像穿越小说一样，把未来的技术带回过去，开挂的人生，开辟自己的天地？</p>
+<p>是像女主那样穿梭回去吃铁板烧？还是像别人的作文一样，穿梭回去，把自己过去的错误一一纠正。</p>
+<p>。。。</p>
+<p>我想，我会哪里都不去。因为我认为“现在就是最好的时光”。</p>
+<p>过去的错，就让他错了吧，或许正因为这些错，才有更正确的未来。</p>
+<p>能穿梭时光，那便拥有了未卜先知、预知未来的能力，</p>
+<p>但我并不希望我的未来是已知的，我希望他是神秘的，是变幻莫测的。</p>
+<p>我并不对我能到达哪个“位置”感兴趣，我只对在到达那个“位置”途径的风景感兴趣。</p>
+<p>我就是我，我不会去改变，现在的我，就是最好的我。</p>
+<p>那么，骚年，珍惜当下吧。</p>
+<p>珍惜现在的时光，珍惜现在所拥有的，珍惜身边的人（嗯，也就是在你身边的我）。</p>
+<p>#EOF#</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/11/Learning-Flask-Web-development-1/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之一">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/09/travel-to-wuhan/" data-toggle="tooltip" data-placement="top" title="记2016/01/15~19武汉游">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/10/Time-waits-for-no-one/"
+                        data-title="Time waits for no one. —— 《穿梭时空的少女》观后感"
+                        data-url="http://blog.j3n5en.com/2016/02/10/Time-waits-for-no-one/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#心情" title="心情">心情</a>
+                        
+                          <a class="tag" href="/tags/#日记" title="日记">日记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

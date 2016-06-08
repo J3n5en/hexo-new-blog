@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之六 - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/16/Learning-Flask-Web-development-6/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Flask" title="Flask">Flask</a>
+                        
+                    </div>
+                    <h1>《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之六</h1>
+                    <h2 class="subheading">undefined</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><p>​        今天是计划的第六天。估计今晚没空，早点写完他吧。</p>
+<h2 id="第六章、大型程序的结构"><a href="#第六章、大型程序的结构" class="headerlink" title="第六章、大型程序的结构"></a>第六章、大型程序的结构</h2><p>之前我们的Demo都是单文件的小脚本，的确很方便，但是当程序变得复杂，单文件就不可取了。通常我们都会使用包和模块组织大型程序。</p>
+<h3 id="1-项目结构"><a href="#1-项目结构" class="headerlink" title="1. 项目结构"></a>1. 项目结构</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">├─Flsky</span><br><span class="line">│  config.py # 储存配置</span><br><span class="line">│  manage.py # 启动程序&amp;其他程序任务</span><br><span class="line">│  requirements.txt # 依赖包</span><br><span class="line">│</span><br><span class="line">├─app # flask 程序</span><br><span class="line">│  │  email.py</span><br><span class="line">│  │  models.py</span><br><span class="line">│  │  __init__.py</span><br><span class="line">│  │</span><br><span class="line">│  ├─main</span><br><span class="line">│  │      errors.py</span><br><span class="line">│  │      forms.py</span><br><span class="line">│  │      views.py</span><br><span class="line">│  │      __init__.py</span><br><span class="line">│  │</span><br><span class="line">│  ├─static</span><br><span class="line">│  └─templates</span><br><span class="line">├─migrations #数据库迁移脚本</span><br><span class="line">├─tests # 单元测试</span><br><span class="line">│      test*.py</span><br><span class="line">│      __init__.py</span><br><span class="line">│</span><br><span class="line">└─venv # python虚拟环境</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置选项"><a href="#2-配置选项" class="headerlink" title="2. 配置选项"></a>2. 配置选项</h3><p>在实际的开发中我们一般需要几个配置，因为一般开发，测试和生产环境需要使用不同的数据库才不会互相影响。从现在开始我们我们的配置不会再像之前那样用简单的字典结构，而是使用配置类。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#config.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">basedir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span>:</span></span><br><span class="line">    SECRET_KEY = os.environ.get(<span class="string">'SECRET_KEY'</span>) <span class="keyword">or</span> <span class="string">'hard to guess string'</span></span><br><span class="line">    SQLALCHEMY_COMMIT_ON_TEARDOWN = <span class="keyword">True</span></span><br><span class="line">    FLASKY_MAIL_SUBJECT_PREFIX = <span class="string">'[Flasky]'</span></span><br><span class="line">    FLASKY_MAIL_SENDER = <span class="string">'Flasky Admin &lt;flasky@example.com&gt;'</span></span><br><span class="line">    FLASKY_ADMIN = os.environ.get(<span class="string">'FLASKY_ADMIN'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_app</span><span class="params">(app)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DevelopmentConfig</span><span class="params">(Config)</span>:</span> DEBUG = <span class="keyword">True</span></span><br><span class="line">    MAIL_SERVER = <span class="string">'smtp.googlemail.com'</span></span><br><span class="line">    MAIL_PORT = <span class="number">587</span></span><br><span class="line">    MAIL_USE_TLS = <span class="keyword">True</span></span><br><span class="line">    MAIL_USERNAME = os.environ.get(<span class="string">'MAIL_USERNAME'</span>)</span><br><span class="line">    MAIL_PASSWORD = os.environ.get(<span class="string">'MAIL_PASSWORD'</span>)</span><br><span class="line">    SQLALCHEMY_DATABASE_URI = os.environ.get(<span class="string">'DEV_DATABASE_URL'</span>) <span class="keyword">or</span> \</span><br><span class="line">        <span class="string">'sqlite:///'</span> + os.path.join(basedir, <span class="string">'data-dev.sqlite'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestingConfig</span><span class="params">(Config)</span>:</span></span><br><span class="line">    TESTING = <span class="keyword">True</span></span><br><span class="line">    SQLALCHEMY_DATABASE_URI = os.environ.get(<span class="string">'TEST_DATABASE_URL'</span>) <span class="keyword">or</span> \ <span class="string">'sqlite:///'</span> + os.path.join(basedir, <span class="string">'data-test.sqlite'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductionConfig</span><span class="params">(Config)</span>:</span></span><br><span class="line">    SQLALCHEMY_DATABASE_URI = os.environ.get(<span class="string">'DATABASE_URL'</span>) <span class="keyword">or</span> \</span><br><span class="line">        <span class="string">'sqlite:///'</span> + os.path.join(basedir, <span class="string">'data.sqlite'</span>)</span><br><span class="line"></span><br><span class="line">config = &#123;</span><br><span class="line">    <span class="string">'development'</span>: DevelopmentConfig,</span><br><span class="line">    <span class="string">'testing'</span>: TestingConfig,</span><br><span class="line">    <span class="string">'production'</span>: ProductionConfig,</span><br><span class="line">    <span class="string">'default'</span>: DevelopmentConfig</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中基类包含通用配置，子类分别定义专用配置。配置类还可以定义<code>init_app()</code> 类方法。其参数是程序实例。在这个方法里面我们可以执行当前环境的配置初始化。在配置脚本末尾的config字典中注册了不同的配置环境。而且还注册了默认的配置。</p>
+<h3 id="3-程序包"><a href="#3-程序包" class="headerlink" title="3. 程序包"></a>3. 程序包</h3><p>程序包用来保存程序的所有代码、模板和静态文件。一般我们把这个程序包称为app。templates和static文件夹是app的一部分。</p>
+<h3 id="4-使用程序工厂函数"><a href="#4-使用程序工厂函数" class="headerlink" title="4. 使用程序工厂函数"></a>4. 使用程序工厂函数</h3><p>在单文件版本中创建应用程序实例很方便，但是通常会有缺陷。因为应用程序实例在全局作用于下被创建，而实例被创建后是没办法动态修改配置的。 尤其在做单元测试时，因为要跑不同的数据库，所以我们要应用不同的配置。解决办法就是通过使用工厂方法延迟应用程序实例的创建，这样不仅仅是延迟了创建时间还让脚本有创建多个应用程序实例的能力，这对于测试尤其有用。在先买年的例子中在app包中定义了了这样一个工厂方法。app包导入了Flask目前会用到的扩展，但因为应用程序实例还没有被构建出来，它们都还没有被正确初始化。create_app()这个工厂方法接受一个配置名称作为参数，通过使用Flask提供的app.config的from_object()方法，我们就能从config.py中导入所需要的配置。一旦应用程序实例被创建出来，扩展就能够通过调用init_app()来完成初始化。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># app/__init__.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"><span class="keyword">from</span> flask.ext.bootstrap <span class="keyword">import</span> Bootstrap</span><br><span class="line"><span class="keyword">from</span> flask.ext.mail <span class="keyword">import</span> Mail</span><br><span class="line"><span class="keyword">from</span> flask.ext.moment <span class="keyword">import</span> Moment</span><br><span class="line"><span class="keyword">from</span> flask.ext.sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> config</span><br><span class="line"></span><br><span class="line">bootstrap = Bootstrap()</span><br><span class="line">mail = Mail()</span><br><span class="line">moment = Moment()</span><br><span class="line">db = SQLAlchemy()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span><span class="params">(config_name)</span>:</span></span><br><span class="line">    app = Flask(__name__)</span><br><span class="line">    app.config.from_object(config[config_name])</span><br><span class="line">    config[config_name].init_app(app)</span><br><span class="line">    bootstrap.init_app(app)</span><br><span class="line">    mail.init_app(app)</span><br><span class="line">    moment.init_app(app)</span><br><span class="line">    db.init_app(app)</span><br><span class="line">    <span class="comment"># 附加路由和自定义错误页面</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+<p>工厂方法返回的应用程序实例还不完整，因它们没有包含路由和错误处理功能，下一节会介绍如何解决这个问题。</p>
+<h3 id="4-在blueprints中实现程序功能"><a href="#4-在blueprints中实现程序功能" class="headerlink" title="4. 在blueprints中实现程序功能"></a>4. 在blueprints中实现程序功能</h3><p>用工厂方法构建应用程序实例会给路由设置带来一些麻烦。单脚本应用中，应用程序实例是全局的，路由能简单地用<code>@app.route</code> 来定义。但是现在应用程序实例是运行时创建的，<code>@app.route</code> 只在在 <code>create_app()</code> 以后才存在，除此之外<code>@app.errorhandler</code> 也有同样的问题。Flask提供的解决方案是使用blueprints来解决这个问题。blueprints跟application类似，也能定义路由。不同之处是它的路由都处于休眠状态，直到它被注册到应用程序实例后路由才是它的一部分。blueprint在全局作用域下使用，因此我们完全可以像在单文件中那样使用路由。当然你既能通过单文件也能通过更加组织良好的方式。为了达到最大程度的便利性，一个子包结构被创建用于管理blueprint。下面展示了在这个main包中如何创建blueprint：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint</span><br><span class="line">main = Blueprint(<span class="string">'main'</span>, __name__)</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views, errors</span><br></pre></td></tr></table></figure>
+<p>blueprints被创建为Blueprint的实例对象，构造函数有两个参数：blueprint的名字和它所在的模块或者包，在这个应用程序中，Python的 <code>__name__</code>  变量就是第二个参数所需要的值。</p>
+<p>应用程序的路由被存储在app/main/views.py模块中， 错误处理则在app/main/errors.py。导入这些模块以后，路由和错误处理就和blueprint关联起来了。</p>
+<p>有一点要注意路由和错误处理模块是在<code>app/__init__.py</code> 的底部被导入的，因为views.py 和 errors.py要导入main blueprint，所以为了避免循环依赖我们要等到main被创建出来才能够导入路由和错误处理。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># app/__init__.py 注册blueprint</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span><span class="params">(config_name)</span>:</span></span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">from</span> main <span class="keyword">import</span> main <span class="keyword">as</span> main_blueprint</span><br><span class="line">    app.register_blueprint(main_blueprint)</span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+<p>错误处理程序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#app/main/error.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> main</span><br><span class="line"></span><br><span class="line"><span class="meta">@main.app_errorhandler(404)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page_not_found</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'404.html'</span>), <span class="number">404</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@main.app_errorhandler(500)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">internal_server_error</span><span class="params">(e)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'500.html'</span>), <span class="number">500</span></span><br></pre></td></tr></table></figure>
+<p>在blueprint使用错误处理，如果使用@app.errorhandler，只有由blueprint定义的路由中导致的错误才会触发对应的handler，如果想要错误处理对整个应用程序可用，我们需要使用@main.app_errorhandler。</p>
+<p>blueprint路由</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># app/main/views.py</span></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template, session, redirect, url_for</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> main</span><br><span class="line"><span class="keyword">from</span> .forms <span class="keyword">import</span> NameForm</span><br><span class="line"><span class="keyword">from</span> .. <span class="keyword">import</span> db</span><br><span class="line"><span class="keyword">from</span> ..models <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"><span class="meta">@main.route('/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    form = NameForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        <span class="comment"># ...</span></span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'.index'</span>))</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>,</span><br><span class="line">                           form=form, name=session.get(<span class="string">'name'</span>),</span><br><span class="line">                           known=session.get(<span class="string">'known'</span>, <span class="keyword">False</span>),</span><br><span class="line">                           current_time=datetime.utcnow())</span><br></pre></td></tr></table></figure>
+<p>在blueprint中使用视图方法跟之前有两个不同的地方。第一个是route是来自blueprint，即-使用@main.route，第二个是url_for()方法的使用。在前面介绍过url_for()的参数默认是视图方法的名称，比如在单脚本应用中index()这个视图方法的URL能够通过url_for(‘index’)获取到。</p>
+<p>在blueprints中区别在于所有的作用域都来自于blueprint（作用域就是blueprint的名称，即Blueprint构造函数的第一个参数），因此index()视图方法需要通过main.index来获取到URL，即url_for(‘main.index’)。url_for()方法同样支持参数的更短形式，通过将blueprint名字省略，我们可以简写为url_for(‘.index’)。当然如果跨越不同的blueprints，blueprint的名字还是要加上的。</p>
+<p>为了完成应用程序，我们还需要在app/main/forms.py模块导入form相关的一些对象。</p>
+<h3 id="5-启动脚本"><a href="#5-启动脚本" class="headerlink" title="5. 启动脚本"></a>5. 启动脚本</h3><p>在根目录中的manage.py文件用于启动程序。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> create_app, db</span><br><span class="line"><span class="keyword">from</span> app.models <span class="keyword">import</span> User, Role</span><br><span class="line"><span class="keyword">from</span> flask.ext.script <span class="keyword">import</span> Manager, Shell</span><br><span class="line"><span class="keyword">from</span> flask.ext.migrate <span class="keyword">import</span> Migrate, MigrateCommand</span><br><span class="line"></span><br><span class="line">app = create_app(os.getenv(<span class="string">'FLASK_CONFIG'</span>) <span class="keyword">or</span> <span class="string">'default'</span>)</span><br><span class="line">manager = Manager(app)</span><br><span class="line">migrate = Migrate(app, db)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_shell_context</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> dict(app=app, db=db, User=User, Role=Role)</span><br><span class="line"></span><br><span class="line">manager.add_command(<span class="string">"shell"</span>, Shell(make_context=make_shell_context))</span><br><span class="line">manager.add_command(<span class="string">'db'</span>, MigrateCommand)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    manager.run()</span><br></pre></td></tr></table></figure>
+<p>该脚本首先创建应用程序实例，然后从系统环境中读取FLASK_CONFIG变量，如果该变量没有定义则使用默认值。然后Flask-Script, Flask-Migrate等扩展的实例都被初始化。</p>
+<h3 id="6-Requirements文件"><a href="#6-Requirements文件" class="headerlink" title="6. Requirements文件"></a>6. <em>Requirements文件</em></h3><p>Applications应该包含一个requirements.txt，它记录了有着准确版本号的所有包依赖，这对以在其他电脑上初始化项目环境很重要。通过如下命令能够自动生成一个项目用到的包的requirement.txt文件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(venv) $ pip freeze &gt;requirements.txt</span><br></pre></td></tr></table></figure>
+<p>在一个新的环境中，你如果要复制虚拟环境中的安装包，只需要执行如下命令即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(venv) $ pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<h3 id="7-单元测试"><a href="#7-单元测试" class="headerlink" title="7. 单元测试"></a>7. <em>单元测试</em></h3><p>到目前应用程序还很小，几乎还没有什么要测试的，但我们先来写一个小的测试例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> current_app</span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> create_app, db</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicsTestCase</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUp</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.app = create_app(<span class="string">'testing'</span>)</span><br><span class="line">        self.app_context = self.app.app_context()</span><br><span class="line">        self.app_context.push()</span><br><span class="line">        db.create_all()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span><span class="params">(self)</span>:</span></span><br><span class="line">        db.session.remove()</span><br><span class="line">        db.drop_all()</span><br><span class="line">        self.app_context.pop()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_app_exists</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.assertFalse(current_app <span class="keyword">is</span> <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_app_is_testing</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.assertTrue(current_app.config[<span class="string">'TESTING'</span>])</span><br></pre></td></tr></table></figure>
+<p>测试是按照Python包中的典型的单元测试的写法来构建的，setUp() 和 tearDown() 方法在每个测试方法执行前后都会运行，任何以test_ 开头的方法都会被当做测试方法来执行。setUp()方法创建了测试所需的环境， 他首先创建了应用程序实例用作测试的山下文环境，这样就能确保测试拿到current_app, 然后新建了一个全新的数据库。数据库和应用程序实例最后都会在tearDown() 方法被销毁。</p>
+<p>第一个测试确保了应用程序实例是存在的，第二个测试应用程序实例在测试配置下运行。为了确保测试文件夹有正确的包结构，我们需要添加一个<code>tests/__init__.py</code> 文件，这样单元测试包就能扫描所有在测试文件夹中的模块了。</p>
+<p>为了运行单元测试，我们可以在manage.py中添加一个自定义命令,</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@manager.command</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""Run the unit tests."""</span></span><br><span class="line">    <span class="keyword">import</span> unittest</span><br><span class="line">    tests = unittest.TestLoader().discover(<span class="string">'tests'</span>)</span><br><span class="line">    unittest.TextTestRunner(verbosity=<span class="number">2</span>).run(tests)</span><br></pre></td></tr></table></figure>
+<p>下面是运行过程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(venv) $ python manage.py test</span><br><span class="line">test_app_exists (test_basics.BasicsTestCase) ... ok</span><br><span class="line">test_app_is_testing (test_basics.BasicsTestCase) ... ok</span><br><span class="line">.----------------------------------------------------------------------</span><br><span class="line">Ran 2 tests in 0.001s</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h3 id="8-创建数据库"><a href="#8-创建数据库" class="headerlink" title="8. 创建数据库"></a>8. <em>创建数据库</em></h3><p>重构后的应用程序使用了跟单文件本版本中完全不同的数据库。数据库URL会首先从环境变量中获取，然后把默认的SQLite数据库作为备选，在三个配置环境下数据库的名字是不同的。</p>
+<p>不论数据库的URL是什么，只要是转换到一个新的数据库数，据库表一定要被重新创建使用Flask-Migrate进行迁移管理的过程中，数据库表能够通过如下命令被新建或者upgrade：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(venv) $ python manage.py db upgrade</span><br></pre></td></tr></table></figure>
+<p>到这里为止，第一部分Flask简介就结束了，从下一章开始就会开始实例部分‘社交博客程序’。</p>
+<blockquote>
+<p>  Happy Hacking ！</p>
+</blockquote>
+<p># EOF #</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/19/Learning-Flask-Web-development-7/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之七">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/15/Learning-Flask-Web-development-5/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之五">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/16/Learning-Flask-Web-development-6/"
+                        data-title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之六"
+                        data-url="http://blog.j3n5en.com/2016/02/16/Learning-Flask-Web-development-6/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Flask" title="Flask">Flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

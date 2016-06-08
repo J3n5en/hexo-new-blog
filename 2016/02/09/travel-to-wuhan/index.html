@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          记2016/01/15~19武汉游 - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/09/travel-to-wuhan/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#心情" title="心情">心情</a>
+                        
+                          <a class="tag" href="/tags/#日记" title="日记">日记</a>
+                        
+                    </div>
+                    <h1>记2016/01/15~19武汉游</h1>
+                    <h2 class="subheading">Take a break and keep on.</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-09
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><p>习惯了说走就走的旅行，这次旅行可谓是“密谋已久”，还没开始考试就在惦记，也一直在想象会不会发生有趣的故事。啊哈哈哈。</p>
+<blockquote>
+<p>Take a break and keep on.</p>
+</blockquote>
+<h2 id="生活忙忙碌碌，为何不休息一下再继续呢？"><a href="#生活忙忙碌碌，为何不休息一下再继续呢？" class="headerlink" title="生活忙忙碌碌，为何不休息一下再继续呢？"></a>生活忙忙碌碌，为何不休息一下再继续呢？</h2><p>其实这次去武汉是我第一次坐火车，一直认为火车是“脏乱差”的代名词，其实还好啦，不过坐了10几个小时火车的我们，其实也是萌萌哒的。<br><img src="/img/post-img/7294200a-ce82-11e5-8cfd-31a347080fd1.png" alt="image"><br>第一站是湖北省博物馆。</p>
+<p>平日里整天对着电脑，网络，总是在前瞻未来，那么去博物馆回顾一下历史不也挺好的吗？看着古人留下的痕迹，在脑海里想象他们曾经发生的故事，不也挺有趣的吗？哈哈哈<br><img src="/img/post-img/87125a06-ce82-11e5-962e-1d6a5cd6a8f0.png" alt="image"><br>但愿网园每个小伙伴都能开开心心。心之所愿，无所不成<br><img src="/img/post-img/47ce047a-ce83-11e5-8c4e-66f8d196a459.png" alt="qq 20160208164438"></p>
+<hr>
+<p>额哼~我们也去了一座别具异域特色的寺庙——古德寺。 </p>
+<p>一进，哇太美了！！我人几乎在欧洲游嘿嘿~~~古德寺的建筑混合了欧亚宗教建筑的特色，增添了几分异域的神秘。<br><img src="/img/post-img/56a61eec-ce83-11e5-9d47-1b14557a7428.png" alt="image"><br><img src="/img/post-img/7174bfda-ce83-11e5-9520-d07acad25573.png" alt="image"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/img/post-img/80e8dc30-ce83-11e5-81e8-941d8ba3fbf4.png" alt="image"></h2><p>来到江边怎能不渡一下江呢？你看，用了飘柔，就素芥末自信，飘逸的头发帅的一逼。<br><img src="/img/post-img/e4fd124a-ce83-11e5-84c5-4f6a1d304c5b.png" alt="image"></p>
+<blockquote>
+<p>无边落木萧萧下，不尽长江滚滚来。</p>
+</blockquote>
+<hr>
+<p>来到武汉怎么能不去一下武汉的最好学府——武汉大学呢？</p>
+<p>尽管不是樱花盛开的季节，而且校园里大肆动土兴工，但我们也能领略到这座校园的美。<br><img src="/img/post-img/28dffda6-ce84-11e5-9e91-eb8a99d34d26.png" alt="image"></p>
+<blockquote>
+<p>秒速5厘米，那是樱花飘落的速度，那么怎样的速度，才能走完我与你之间的距离？ </p>
+</blockquote>
+<hr>
+<blockquote>
+<p>昔人已乘黄鹤去，此地空余黄鹤楼。黄鹤一去不复返，白云千载空悠悠。</p>
+</blockquote>
+<p><img src="/img/post-img/528f3fb2-ce85-11e5-8ab5-d498f5847f8a.png" alt="image"><br>其实我很明显的感受到不再是“此地空余黄鹤楼”了，这个黄鹤楼明显是假货，，，不再是以前的黄鹤楼，是重修过的，变得非常地商业化。</p>
+<h2 id="恩恩，对酒当歌，人生几何，我们应当趁着年轻，及时行乐，老了再想去都去不了咯。"><a href="#恩恩，对酒当歌，人生几何，我们应当趁着年轻，及时行乐，老了再想去都去不了咯。" class="headerlink" title="恩恩，对酒当歌，人生几何，我们应当趁着年轻，及时行乐，老了再想去都去不了咯。"></a>恩恩，对酒当歌，人生几何，我们应当趁着年轻，及时行乐，老了再想去都去不了咯。</h2><p>装逼圣地——昙华林</p>
+<p>昙华林给人感觉蛮像厦门鼓浪屿~~~~里面有很多老建筑的教育医疗机构和古建筑及旧址。</p>
+<p>特别是一堆国外风格建筑群。可谓是逼格满满，文艺气息爆棚。<br><img src="/img/post-img/95243080-ce85-11e5-8158-fd5ffb7a6156.png" alt="qq 20160208170102"></p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="/img/post-img/7fec5c1a-ce85-11e5-9767-8c51ecc5de1f.png" alt="image"></h2><p>最后的最后，发一下ci的图。。嘻嘻<br><img src="/img/post-img/13ede08c-ce86-11e5-96e9-f581f7c6cf1f.png" alt="image"><br><img src="/img/post-img/2d34b368-ce86-11e5-909f-aa102a56e7d0.png" alt="image"><br><img src="/img/post-img/328d74bc-ce86-11e5-849b-067e490a37fa.png" alt="image"></p>
+<h2 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="/img/post-img/5ef1ac3a-ce86-11e5-91fb-2eb45b47bac4.png" alt="image"></h2><p>希望大伙都能快快乐乐地生活，开开心心地成长。嘻嘻。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/10/Time-waits-for-no-one/" data-toggle="tooltip" data-placement="top" title="Time waits for no one. —— 《穿梭时空的少女》观后感">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/09/Using-http2-and-https/" data-toggle="tooltip" data-placement="top" title="http2 + https 装逼指南＆Let's Encrypt for nginx使用方法">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/09/travel-to-wuhan/"
+                        data-title="记2016/01/15~19武汉游"
+                        data-url="http://blog.j3n5en.com/2016/02/09/travel-to-wuhan/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#心情" title="心情">心情</a>
+                        
+                          <a class="tag" href="/tags/#日记" title="日记">日记</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

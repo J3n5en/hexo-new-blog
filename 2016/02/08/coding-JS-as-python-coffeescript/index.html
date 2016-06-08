@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          像写Python/Ruby一样写Javascript——coffeescript  - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/08/coding-JS-as-python-coffeescript/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                          <a class="tag" href="/tags/#front-end" title="front-end">front-end</a>
+                        
+                          <a class="tag" href="/tags/#coffeescript" title="coffeescript">coffeescript</a>
+                        
+                    </div>
+                    <h1>像写Python/Ruby一样写Javascript——coffeescript </h1>
+                    <h2 class="subheading">Javascripe，coffeescript</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-08
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><p>作为一名Pyer，我非常python的简洁语法。也希望在写前端JS是能用到类似他的语法。。。。于是碰到了coffeescript。coffeescript能让我们编写更少的代码，使得语言特性更强。其实最爽的是写js让我感觉我在写python，不用再管那些麻烦的符号。。哇哈哈哈。。。。。</p>
+<p>那么壮士，让我们干了这杯热 ~~ 翔 ~~  咖啡吧。。</p>
+<p><img src="/img/post-img/703d37d8-cdb0-11e5-9e0d-e1cd222bc4ea.png" alt="image"></p>
+<p>我们先来看看官方给的demo</p>
+<p>左边是 CoffeeScript, 右边是编译后输出的 JavaScript. </p>
+<p><img src="/img/post-img/84624a64-cdb0-11e5-9d74-42a0f18e0640.png" alt="image"></p>
+<p>代码量骤减啊，有木有！！其实他也大概讲到了一些常用的要点了。赋值，条件语句，函数，数组，对象，等。。。下面我就分开来仔细说说把。</p>
+<hr>
+<p>CoffeeScript的单行注释是#，多行注释是###, </p>
+<h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">array = [1, 2, 3, 4, 5, 6]</span><br><span class="line">obj = </span><br><span class="line">  name: &apos;xxx&apos;</span><br><span class="line">  age: 10</span><br><span class="line"></span><br><span class="line">//编译后    </span><br><span class="line">var array, obj;</span><br><span class="line"></span><br><span class="line">array = [1, 2, 3, 4, 5, 6];</span><br><span class="line"></span><br><span class="line">obj = &#123;</span><br><span class="line">  name: &apos;xxx&apos;,</span><br><span class="line">  age: 10</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>CoffeeScript里面的代码块都不需要花括号{}来包裹，而是通过换行和缩进来控制的。很优雅，right？ </p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>函数声明</p>
+<p>用一组可选的圆括号包裹的参数, 一个箭头, 一个函数体来定义函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">square = (x) -&gt;</span><br><span class="line">  x * x</span><br><span class="line"></span><br><span class="line">//编译后</span><br><span class="line">var square;</span><br><span class="line"></span><br><span class="line">square = function(x) &#123;</span><br><span class="line">  return x * x;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#没参数  包括参数的括号可要可不要</span><br><span class="line">square = -&gt;  # or square =() -&gt;</span><br><span class="line">  x * x</span><br><span class="line"></span><br><span class="line">##多参数</span><br><span class="line">square = (x, y) -&gt;</span><br><span class="line">  x * y</span><br><span class="line"></span><br><span class="line"># 默认参数值  如果有多个参数的话，必填参数在前，默认参数在后！</span><br><span class="line">square = (x, y = 2) -&gt;</span><br><span class="line">  x * y</span><br></pre></td></tr></table></figure>
+<h2 id="if-else-else-if-unless"><a href="#if-else-else-if-unless" class="headerlink" title="if,else,else if,unless"></a>if,else,else if,unless</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">if a</span><br><span class="line">  a()</span><br><span class="line">else if b</span><br><span class="line">  b()</span><br><span class="line">else</span><br><span class="line">  c()</span><br><span class="line"></span><br><span class="line">//编译后</span><br><span class="line">if (a) &#123;</span><br><span class="line">  a();</span><br><span class="line">&#125; else if (b) &#123;</span><br><span class="line">  b();</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  c();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>什么?不够简洁??那么来试试if/unless后置写法吧.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">a() if a</span><br><span class="line">b() unless a</span><br><span class="line"></span><br><span class="line">//编译后</span><br><span class="line">if (a) &#123;</span><br><span class="line">  a();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (!a) &#123;</span><br><span class="line">  b();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不够后置写法只能单操作呢,,,,也就是不能判断后运行几条操作.</p>
+<p>还有三目运算呢….</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">date = if a then b else c</span><br><span class="line"></span><br><span class="line">//编译后    </span><br><span class="line">date = a ? b : c;</span><br></pre></td></tr></table></figure>
+<p>可读性好强把,</p>
+<h2 id="循环和推倒式"><a href="#循环和推倒式" class="headerlink" title="循环和推倒式"></a>循环和推倒式</h2><p>对象的遍历</p>
+<p>对象的遍历只要拿到key和value就可以做爱做的事了。嘿嘿</p>
+<p>先看操作前置写法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">obj =</span><br><span class="line">  name: &apos;xxx&apos;</span><br><span class="line">  age: 10</span><br><span class="line"></span><br><span class="line">console.log key + &apos;:&apos; + value for key,value of obj</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#编译后</span><br><span class="line">var key, obj, value;</span><br><span class="line"></span><br><span class="line">obj = &#123;</span><br><span class="line">  name: &apos;xxx&apos;,</span><br><span class="line">  age: 10</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (key in obj) &#123;</span><br><span class="line">  value = obj[key];</span><br><span class="line">  console.log(key + &apos;:&apos; + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>多操作还是得这样写，注意缩进</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">obj =</span><br><span class="line">  name: &apos;xxx&apos;</span><br><span class="line">  age: 10</span><br><span class="line"></span><br><span class="line">for key,value of obj</span><br><span class="line">  console.log key + &apos;:&apos; + value</span><br><span class="line">  alert key + &apos;:&apos; + value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#编译后</span><br><span class="line">var key, obj, value;</span><br><span class="line"></span><br><span class="line">obj = &#123;</span><br><span class="line">  name: &apos;xxx&apos;,</span><br><span class="line">  age: 10</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (key in obj) &#123;</span><br><span class="line">  value = obj[key];</span><br><span class="line">  console.log(key + &apos;:&apos; + value);</span><br><span class="line">  alert(key + &apos;:&apos; + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你希望仅迭代在当前对象中定义的属性，通过hasOwnProperty检查并避免属性是继承来的，可以这样来写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">obj =</span><br><span class="line">  name: &apos;xxx&apos;</span><br><span class="line">  age: 10</span><br><span class="line"></span><br><span class="line">for own key,value of obj</span><br><span class="line">  console.log key + &apos;:&apos; + value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#编译后</span><br><span class="line">var key, obj, value,</span><br><span class="line">  __hasProp = &#123;&#125;.hasOwnProperty;</span><br><span class="line"></span><br><span class="line">obj = &#123;</span><br><span class="line">  name: &apos;xxx&apos;,</span><br><span class="line">  age: 10</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">for (key in obj) &#123;</span><br><span class="line">  if (!__hasProp.call(obj, key)) continue;</span><br><span class="line">  value = obj[key];</span><br><span class="line">  console.log(key + &apos;:&apos; + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="注意：别搞错关键字了"><a href="#注意：别搞错关键字了" class="headerlink" title="注意：别搞错关键字了"></a>注意：别搞错关键字了</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for item in array</span><br><span class="line">for key of obj</span><br></pre></td></tr></table></figure>
+<h3 id="推导式"><a href="#推导式" class="headerlink" title="推导式"></a>推导式</h3><p>所谓的推导式其实就是在遍历数组进行操作的同时，将操作后的结果生成一个新的数组。注意啊，这里仅仅是操作数组，对象可不行。</p>
+<p>看例子：将每个数组的每个元素进行+1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">array = [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">addOne = (item)-&gt;</span><br><span class="line">  return item + 1</span><br><span class="line"></span><br><span class="line">newArray = (addOne item for item in array)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#编译后</span><br><span class="line">var addOne, array, item, newArray;</span><br><span class="line"></span><br><span class="line">array = [1, 2, 3, 4];</span><br><span class="line"></span><br><span class="line">addOne = function(item) &#123;</span><br><span class="line">  return item + 1;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">newArray = (function() &#123;</span><br><span class="line">  var _i, _len, _results;</span><br><span class="line">  _results = [];</span><br><span class="line">  for (_i = 0, _len = array.length; _i &lt; _len; _i++) &#123;</span><br><span class="line">    item = array[_i];</span><br><span class="line">    _results.push(addOne(item));</span><br><span class="line">  &#125;</span><br><span class="line">  return _results;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>推导式的代码就一行，但是编译到JavaScript，大家可以看到节省了大量的代码，而且从CoffeeScript代码上，我们一眼就看出了代码功能。</p>
+<p>当然了，实际上推导式不可能就这样简单：遍历所有元素进行操作。有时候得进行一些过滤。CoffeeScript里面也提供了这些功能，看例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#编译前</span><br><span class="line">array = [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">addOne = (item)-&gt;</span><br><span class="line">  return item + 1</span><br><span class="line"></span><br><span class="line">newArray = (addOne item for item,i in array)</span><br><span class="line">newArray1 = (addOne item for item,i in array when i isnt 0) #过滤掉第一个元素</span><br><span class="line">newArray2 = (addOne item for item,i in array when item &gt; 3) #过滤掉小于4的元素</span><br><span class="line">newArray3 = (addOne item for item,i in array by 2) #迭代的跨度</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#编译后</span><br><span class="line">var addOne, array, i, item, newArray, newArray1, newArray2, newArray3;</span><br><span class="line"></span><br><span class="line">array = [1, 2, 3, 4];</span><br><span class="line"></span><br><span class="line">addOne = function(item) &#123;</span><br><span class="line">  return item + 1;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">newArray = (function() &#123;</span><br><span class="line">  var _i, _len, _results;</span><br><span class="line">  _results = [];</span><br><span class="line">  for (i = _i = 0, _len = array.length; _i &lt; _len; i = ++_i) &#123;</span><br><span class="line">    item = array[i];</span><br><span class="line">    _results.push(addOne(item));</span><br><span class="line">  &#125;</span><br><span class="line">  return _results;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">newArray1 = (function() &#123;</span><br><span class="line">  var _i, _len, _results;</span><br><span class="line">  _results = [];</span><br><span class="line">  for (i = _i = 0, _len = array.length; _i &lt; _len; i = ++_i) &#123;</span><br><span class="line">    item = array[i];</span><br><span class="line">    if (i !== 0) &#123;</span><br><span class="line">      _results.push(addOne(item));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return _results;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">newArray2 = (function() &#123;</span><br><span class="line">  var _i, _len, _results;</span><br><span class="line">  _results = [];</span><br><span class="line">  for (i = _i = 0, _len = array.length; _i &lt; _len; i = ++_i) &#123;</span><br><span class="line">    item = array[i];</span><br><span class="line">    if (item &gt; 3) &#123;</span><br><span class="line">      _results.push(addOne(item));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return _results;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">newArray3 = (function() &#123;</span><br><span class="line">  var _i, _len, _results;</span><br><span class="line">  _results = [];</span><br><span class="line">  for (i = _i = 0, _len = array.length; _i &lt; _len; i = _i += 2) &#123;</span><br><span class="line">    item = array[i];</span><br><span class="line">    _results.push(addOne(item));</span><br><span class="line">  &#125;</span><br><span class="line">  return _results;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h3 id="相信大家也发现了，推导式都是写在一行的，如果要使用推导式，得将你的操作封装成一个函数供调用。"><a href="#相信大家也发现了，推导式都是写在一行的，如果要使用推导式，得将你的操作封装成一个函数供调用。" class="headerlink" title="相信大家也发现了，推导式都是写在一行的，如果要使用推导式，得将你的操作封装成一个函数供调用。"></a>相信大家也发现了，推导式都是写在一行的，如果要使用推导式，得将你的操作封装成一个函数供调用。</h3><h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><p>CoffeeScript构建的思想，借鉴了很多Python和Ruby的。比如现在所说的切片功能。</p>
+<p>切片其实就是对数组的截断，插入和删除操作。说白了就是用JavaScript的数组slice和splice函数操作数组。还是先简单说明一下这两函数吧。注意啊，这里讲的JavaScript。</p>
+<p>slice(start,end)</p>
+<ul>
+<li><p>功能：数组截取</p>
+</li>
+<li><p>参数： </p>
+<ul>
+<li>start：开始位置</li>
+<li>end：结束位置</li>
+</ul>
+</li>
+<li><p>返回值：新的数组</p>
+<p>  -注意：数组本身不发生变化</p>
+<p>  -第一个参数是截取开始位置（数组下标是从0开始），第二个参数是结束位置，但是不包括结束位置。</p>
+<p>  -如果只有一个参数，从开始位置截取到剩下所有数据</p>
+<p>  -开始位置和结束位置也可以传递负数，负数表示倒着数。例如-3是指倒数第三个元素</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">var array = [1, 2, 3, 4, 5];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>var newArray = array.slice(1); //newArray: [2,3,4,5]</p>
+<p>var newArray1 = array.slice(0, 3); //newArray1: [1,2,3]</p>
+<p>var newArray2 = array.slice(0, -1); //newArray2: [1,2,3,4]</p>
+<p>var newArray3 = array.slice(-3, -2); //newArray3: [3]</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">###splice(start,len,data...)</span><br><span class="line"></span><br><span class="line">- 功能：数组插入数据、删除数据</span><br><span class="line">- 参数： </span><br><span class="line">    - start：开始位置</span><br><span class="line">    - len：截断的个数</span><br><span class="line">    - data：插入的数据</span><br><span class="line">- 返回值：截断的数据，是数组</span><br><span class="line">-注意：操作的是数组本身</span><br><span class="line">如果只有一个参数，从开始位置截取剩下所有数据</span><br></pre></td></tr></table></figure>
+<p>var array = [1, 2, 3, 4, 5]</p>
+<p>var newArray = array.splice(1);//array=[1] newArray=[2,3,4,5]</p>
+<p>var newArray1 = array.splice(0, 2);//array=[3,4,5] newArray1=[1,2]</p>
+<p>var newArray2 = array.splice(0, 1, 6, 7);//array=[6,7,2,3,4,5] newArray2=[1]</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">好了，回到CoffeeScript，看看所谓的切片。</span><br></pre></td></tr></table></figure>
+<h1 id="编译前"><a href="#编译前" class="headerlink" title="编译前"></a>编译前</h1><p>array = [1, 2, 3, 4]</p>
+<p>newArray = array[0…2] #newArray=[1,2]</p>
+<p>newArray1 = array[0..2] #newArray1=[1,2,3]</p>
+<p>newArray2 = array[..] #newArray2=[1,2,3,4]</p>
+<p>newArray3 = array[-3…-1] #newArray3=[2,3]</p>
+<h1 id="编译后"><a href="#编译后" class="headerlink" title="编译后"></a>编译后</h1><p>var array, newArray, newArray1, newArray2, newArray3;</p>
+<p>array = [1, 2, 3, 4];</p>
+<p>newArray = array.slice(0, 2);    </p>
+<p>newArray1 = array.slice(0, 3);    </p>
+<p>newArray2 = array.slice(0);    </p>
+<p>newArray3 = array.slice(-3, -1);</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 注意：... 不包括结束位置的元素，.. 包括结束位置的元素</span><br><span class="line">CoffeeScript里面是这样操作数组的。</span><br></pre></td></tr></table></figure>
+<h1 id="编译前-1"><a href="#编译前-1" class="headerlink" title="编译前"></a>编译前</h1><p>array = [1, 2, 3, 4]</p>
+<p>array[0…1] = [5] #array=[5,2,3,4]</p>
+<p>array[0..1] = [5] #array=[5,3,4]</p>
+<h1 id="编译后-1"><a href="#编译后-1" class="headerlink" title="编译后"></a>编译后</h1><p>var array, _ref, _ref1;</p>
+<p>array = [1, 2, 3, 4];</p>
+<p>[].splice.apply(array, [0, 1].concat(_ref = [5])), _ref;</p>
+<p>[].splice.apply(array, [0, 2].concat(_ref1 = [5])), _ref1;</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">其实就是把两个下标之间的元素替换成新的数据。同样的，... 不包括结束位置的元素，.. 包括结束位置的元素</span><br><span class="line"></span><br><span class="line">## 运算符</span><br><span class="line"></span><br><span class="line">![image](/img/post-img/35d1a54a-cdb3-11e5-944a-6bebb8ddc9e3.png)</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">好了~ </span><br><span class="line"></span><br><span class="line">coffeescript的知识点大概就这些了....漏了再补吧..哈哈哈....</span><br><span class="line"></span><br><span class="line">happy hacking!</span><br></pre></td></tr></table></figure>
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/09/away-from-F5-browsersync/" data-toggle="tooltip" data-placement="top" title="解放F5 —— browsersync">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/07/Using-simditor-on-django/" data-toggle="tooltip" data-placement="top" title="在Django中使用Simditor">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/08/coding-JS-as-python-coffeescript/"
+                        data-title="像写Python/Ruby一样写Javascript——coffeescript "
+                        data-url="http://blog.j3n5en.com/2016/02/08/coding-JS-as-python-coffeescript/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                          <a class="tag" href="/tags/#front-end" title="front-end">front-end</a>
+                        
+                          <a class="tag" href="/tags/#coffeescript" title="coffeescript">coffeescript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

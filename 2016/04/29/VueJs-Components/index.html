@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          VueJs组件[译] - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/04/29/VueJs-Components/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww4.sinaimg.cn/large/6bf00bd8gw1f4nucnvaafj21ig0qojs1.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                          <a class="tag" href="/tags/#front-end" title="front-end">front-end</a>
+                        
+                          <a class="tag" href="/tags/#VueJs" title="VueJs">VueJs</a>
+                        
+                    </div>
+                    <h1>VueJs组件[译]</h1>
+                    <h2 class="subheading">VueJs: Components</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-04-29
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><blockquote>
+<p>原文：<a href="https://coligo.io/vuejs-components/" target="_blank" rel="external">VueJs: Components</a> </p>
+<p>PS：非直译，根据译者的理解来翻译。</p>
+</blockquote>
+<h1 id="实用Vue组件指南"><a href="#实用Vue组件指南" class="headerlink" title="实用Vue组件指南:"></a>实用Vue组件指南:</h1><p>在这篇文章中，我们将通过一系列容易上手的实例来学习和理解Vue的组件。在我们学习完组件的基础后，我们用之前所学知识创建一个简单版的reddit（类似于国内的煎蛋、豆瓣小组之类的）。让他有一些文章，并添加赞和差评的功能。最后，我们将使用组件的方式，创建一个和reddit类似的应用——Disqus(类似国内的多说)，用户可以点赞和差评其他用户的评论。</p>
+<p>你刚刚接触Vue？没关系!可以看看我博客上一篇文章。</p>
+<hr>
+<h1 id="了解Vue组件"><a href="#了解Vue组件" class="headerlink" title="了解Vue组件"></a>了解Vue组件</h1><p>组件可以帮助我们把复杂的事情分拆成简单的事情来做；或者积小成多把简单的应用最后累积成庞大的系统。组件也可以帮助你跨应用地代码复用。</p>
+<p>那我们和以前一样，我们先创建一个简单的HTML页面，并创建Vue实例作为Vue的演练场吧。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>VueJs Tutorial - coligo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- VueJs将会挂载在这个DOM元素上  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="comment">// 在Vue实例中绑定DIV的ID</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">'#app'</span></span><br><span class="line">    &#125;);</span><br><span class="line">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们的演练场准备好了，现在就我们开始创建一个简单的、可复用的组件吧。在Vue中我们使用构造函数<code>Vue.component()</code> 创建组件，它接受两个参数：</p>
+<ol>
+<li>组件的名字</li>
+<li>包含选项的组件对象</li>
+</ol>
+<p>组件对象的选项和<code>Vue()</code>的选项几乎是一模一样的，主要就是<code>el</code>和<code>data</code> 有微笑的差异。我们来通过组件来跑个<code>Hello VueJS！</code>吧。</p>
+<ul>
+<li>给组件命名为<code>greeting</code></li>
+<li>给组件传递<code>template</code> 选项</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Vue.component('greeting', &#123;</span><br><span class="line">    template: '<span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to coligo!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>'</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在我们已经新建了一个简单的组件，那么在我们的应用里就可以用<code>&lt;greeting&gt;</code>和<code>&lt;/greeting&gt;</code>像常规的HTML标签一样很简单地使用它了。放在一起看就是这样：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">greeting</span>&gt;</span><span class="tag">&lt;/<span class="name">greeting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">        Vue.component(<span class="string">'greeting'</span>, &#123;</span><br><span class="line">            template: <span class="string">'&lt;h1&gt;Welcome to J3n5en\'Blog!&lt;/h1&gt;'</span></span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">            el: <span class="string">'#app'</span></span><br><span class="line">        &#125;);</span><br><span class="line">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>不出所料的话，他和我们预期一样会显示一个“Welcome to J3n5en’Blog!”。要是我们想要调用三/多次组件呢？</p>
+<p>我们可以这样：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">greeting</span>&gt;</span><span class="tag">&lt;/<span class="name">greeting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">greeting</span>&gt;</span><span class="tag">&lt;/<span class="name">greeting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">greeting</span>&gt;</span><span class="tag">&lt;/<span class="name">greeting</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>通过组件，我们的应用会更加高效、简洁。</p>
+<h1 id="使用-lt-template-gt-标签创建更加复杂的组件"><a href="#使用-lt-template-gt-标签创建更加复杂的组件" class="headerlink" title="使用&lt;template&gt; 标签创建更加复杂的组件"></a>使用<code>&lt;template&gt;</code> 标签创建更加复杂的组件</h1><p>现在或许你会想，要是我们的组件里面不只只存在一个<code>&lt;h1&gt;</code>标签而是非常复杂呢？直接在<code>template</code>属性里定义？那还没等到你觉得组件是高效的、简洁的时候你就已经抓狂、崩溃了吧。</p>
+<p>为了避免这种问题，我们可以利用HTML5里面的<code>&lt;template&gt;</code>标签，它可以被客户端获取，却不会被渲染。通过这个标签的这种特性，那么当我们需要他的时候，我们就可以获取他，使用他。</p>
+<p>我们可以在HTML页面的任意位置添加<code>&lt;template&gt;</code>,并通过的的ID在Vue组件中引用它。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">greeting</span>&gt;</span><span class="tag">&lt;/<span class="name">greeting</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"greeting-template"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to J3n5en's Blog!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span>&gt;</span>login<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span>&gt;</span>signup<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://blog.j3n5en.com"</span>&gt;</span>Check out the other tutorials!<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">        Vue.component(<span class="string">'greeting'</span>, &#123;</span><br><span class="line">            template: <span class="string">'#greeting-template'</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">            el: <span class="string">'#app'</span></span><br><span class="line">        &#125;);</span><br><span class="line">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>现在我们已经可以通过这个方法储存更多，更复杂的模板，同时还可以避免混乱、保持较高的可读性。我们在后面的文章中还会介绍一些更加优雅的方法来组织组件例如：vueify 。</p>
+<h1 id="使用Props传递数据"><a href="#使用Props传递数据" class="headerlink" title="使用Props传递数据"></a>使用<code>Props</code>传递数据</h1><p><strong>组件实例的作用域是孤立的</strong>。这意味着不能并且不应该在子组件的模板内直接引用父组件的数据。可以使用 <strong><code>props</code></strong> 把数据传给子组件。让我们创建一个简单的、基本例子来学习怎样通过<code>Props</code>传递数据。</p>
+<p>我们需要在子组件的<code>props</code>选项中显式地声明希望从父组件获得的数据。像这样：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'greeting'</span>, &#123;</span><br><span class="line">    template: <span class="string">'&lt;h1&gt;&#123;&#123;message&#125;&#125;&lt;/h1&gt;'</span>,</span><br><span class="line">    props: [<span class="string">'message'</span>]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里的<code>props</code>是一个字符串组成的数据。这个例子中，我们的组件只会从父组件中仅接受<code>message</code>的数据。然后我们需要在父组件给他传递<code>message</code>的数据。这里传入一个普通的字符串：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">greeting</span> <span class="attr">message</span>=<span class="string">"Welcome to the VueJs Components Tutorial"</span>&gt;</span><span class="tag">&lt;/<span class="name">greeting</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>props</code>也可以被定义为数据，可以指定验证要求。例如在这个例子中，我们希望<code>message</code>是必须存在的，而且只能是字符串类型，那么我们可以这样：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'greeting'</span>, &#123;</span><br><span class="line">    template: <span class="string">'&lt;h1&gt;&#123;&#123;message&#125;&#125;&lt;/h1&gt;'</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">        message: &#123;</span><br><span class="line">            type: <span class="built_in">String</span>,</span><br><span class="line">            required: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这篇文章中，我们不会太过于深入地讲解<strong>Prop验证</strong>。如果你感兴趣可以去<a href="http://cn.vuejs.org/guide/components.html#Prop-验证" target="_blank" rel="external">VueJs的官网的指南</a>中了解更多关于<strong>Prop验证</strong>的知识。</p>
+<p>下面我们看看在实际的场景中组件的用法。实际场景中，我们会调用数据库获得一些如下的博客文章信息对象：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    author: 'Johnnie Walker',</span><br><span class="line">    title: 'Aging Your Own Whisky',</span><br><span class="line">    content: 'A bunch of steps and a whole lot of content'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里为了方便演示，我们就不调用数据库了，直接模拟已经获得数据的情况。像：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        author: <span class="string">'Johnnie Walker'</span>,</span><br><span class="line">        title: <span class="string">'Aging Your Own Whisky'</span>,</span><br><span class="line">        content: <span class="string">'A bunch of steps and a whole lot of content'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们的博客一般会有很多文章，这里我们创建一个简易的文章组件：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"post-template"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;&#123; author &#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那么我们怎么将标题等内容替换成从数据库中获得的信息呢？</p>
+<p>首先，我们应该像刚刚一样，在组件中引用id为<code>post-template</code>的模版。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'post'</span>, &#123;</span><br><span class="line">    template: <span class="string">'#post-template'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>接下来我们在组件中声明<code>props</code>选项，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'post'</span>, &#123;</span><br><span class="line">    template: <span class="string">'#post-template'</span>,</span><br><span class="line">    props: [<span class="string">'title'</span>, <span class="string">'author'</span>, <span class="string">'content'</span>]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在我们可以在我们的博客应用中到处引用<code>post</code>组件了：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">post</span> <span class="attr">:title</span>=<span class="string">"title"</span> <span class="attr">:author</span>=<span class="string">"author"</span> <span class="attr">:content</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中我们从父组件中动态地绑定组件的3个数据。（这里的<code>:*</code>是<code>v-bind:*</code>的缩写）。现在只要父组件的数据发生改变，子组件也会随之马上发生改变。</p>
+<h1 id="创建一个类似Reddit的文章管理系统"><a href="#创建一个类似Reddit的文章管理系统" class="headerlink" title="创建一个类似Reddit的文章管理系统"></a>创建一个类似Reddit的文章管理系统</h1><p>通过这篇文章，我们已经掌握了Vue的基础知识，现在我们就用这篇和前一篇文章所学的知识编写一个类似Reddit的文章管理系统。</p>
+<ul>
+<li>创建Vue实例</li>
+<li>绑定<code>#app</code>DIV</li>
+<li>定义将要显示的文章数据</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// voter.js</span></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    posts: [&#123;</span><br><span class="line">                title: <span class="string">"A post for our reddit demo starting at 15 votes"</span>,</span><br><span class="line">                votes: <span class="number">15</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: <span class="string">"Try out the upvoting, it works, I promise"</span>,</span><br><span class="line">                votes: <span class="number">53</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: <span class="string">"coligo is the bomb!"</span>,</span><br><span class="line">                votes: <span class="number">10</span></span><br><span class="line">            &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>data</code>由文章标题和文章的票数组成，现在我们编写HTML和CSS。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container-fluid"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在HTML 中使用<code>&lt;template&gt;</code> 定义一个单篇文章的组件，这样我们就能使用<code>v-for</code> 很简单地把所有的文章都显示出来。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"post-template"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-up"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"label label-primary"</span>&gt;</span>&#123;&#123; post.votes &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-down"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span>&gt;</span>&#123;&#123; post.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后我们的HTML就将会是这样的:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>VueJs Components Tutorial - coligo.io<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"style.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container-fluid"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"post-template"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-up"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"label label-primary"</span>&gt;</span>&#123;&#123; post.votes &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-down"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span>&gt;</span>&#123;&#123; post.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://code.jquery.com/jquery-2.2.0.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"voter.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在我们已经定义好的Vue实例，和template。现在我们就在Js文件中定义Vue组件。并在组件中定义<code>props</code>。这样我们就可以在子组件中接受来自父组件的<code>data</code>.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// voter.js</span></span><br><span class="line">Vue.component(<span class="string">'post'</span>, &#123;</span><br><span class="line">  template: <span class="string">"#post-template"</span>,</span><br><span class="line">  props: [<span class="string">'post'</span>]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    posts: [&#123;</span><br><span class="line">                title: <span class="string">"A post for our reddit demo starting at 15 votes"</span>,</span><br><span class="line">                votes: <span class="number">15</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: <span class="string">"Try out the upvoting, it works, I promise"</span>,</span><br><span class="line">                votes: <span class="number">53</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: <span class="string">"coligo is the bomb!"</span>,</span><br><span class="line">                votes: <span class="number">10</span></span><br><span class="line">            &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在我们就可以使用<code>v-for</code>指令把<code>&lt;post&gt;</code>全部循环出来。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container-fluid"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list-group"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">post</span> <span class="attr">v-for</span>=<span class="string">"post in posts"</span> <span class="attr">:post</span>=<span class="string">"post"</span>&gt;</span><span class="tag">&lt;/<span class="name">post</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在我们做的就是循环输出<code>data</code>里面的<code>posts</code>对象数组。那么现在就能在页面中渲染数据的所有内容。接下来我们要做的就是编写点赞的逻辑，当用户点击赞时，我们需要判断他是否已经点过赞。</p>
+<p>首先，我们给文章添加赞/踩按钮：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-up"</span> @<span class="attr">click</span>=<span class="string">"upvote"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-down"</span> @<span class="attr">click</span>=<span class="string">"downvote"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>任何时候用户点击了赞/踩，都会调用响应的<code>method</code>,但是当用户已经点击过了，按钮就变成不可点击状态。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">'post'</span>, &#123;</span><br><span class="line">  template: <span class="string">"#post-template"</span>,</span><br><span class="line">  props: [<span class="string">'post'</span>],</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      upvoted: <span class="literal">false</span>,</span><br><span class="line">      downvoted: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    upvote: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.upvoted = !<span class="keyword">this</span>.upvoted;</span><br><span class="line">      <span class="keyword">this</span>.downvoted = <span class="literal">false</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    downvote: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.downvoted = !<span class="keyword">this</span>.downvoted;</span><br><span class="line">      <span class="keyword">this</span>.upvoted = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>现在我们需要添加点击赞/踩后<code>votes</code>增加/改变的功能：</p>
+<p>使用<code>computed</code>属性计算，检查文章是否已经赞/踩，从而使<code>votes</code> 增加或减少1。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">  computed: &#123;</span><br><span class="line">    votes: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.upvoted) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.post.votes + <span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.downvoted) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.post.votes - <span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.post.votes;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>最后Javascript的全部代码是：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// voter.js</span></span><br><span class="line">Vue.component(<span class="string">'post'</span>, &#123;</span><br><span class="line">  template: <span class="string">"#post-template"</span>,</span><br><span class="line">  props: [<span class="string">'post'</span>],</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      upvoted: <span class="literal">false</span>,</span><br><span class="line">      downvoted: <span class="literal">false</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    upvote: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.upvoted = !<span class="keyword">this</span>.upvoted;</span><br><span class="line">      <span class="keyword">this</span>.downvoted = <span class="literal">false</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    downvote: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.downvoted = !<span class="keyword">this</span>.downvoted;</span><br><span class="line">      <span class="keyword">this</span>.upvoted = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    votes: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.upvoted) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.post.votes + <span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.downvoted) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.post.votes - <span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.post.votes;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">"#app"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    posts: [&#123;</span><br><span class="line">                title: <span class="string">"A post for our reddit demo starting at 15 votes"</span>,</span><br><span class="line">                votes: <span class="number">15</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: <span class="string">"Try out the upvoting, it works, I promise"</span>,</span><br><span class="line">                votes: <span class="number">53</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: <span class="string">"coligo is the bomb!"</span>,</span><br><span class="line">                votes: <span class="number">10</span></span><br><span class="line">            &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>最后我们要做的就是把<code>post</code>中的<code>votes</code>显示到页面中。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"post-template"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-up"</span> @<span class="attr">click</span>=<span class="string">"upvote"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"label label-primary"</span>&gt;</span>&#123;&#123; votes &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-down"</span> @<span class="attr">click</span>=<span class="string">"downvote"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span>&gt;</span>&#123;&#123; post.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>判断用户已经投票然后使得按钮失效，我们可以使用Vue中的Class绑定（<code>v-bind:class</code>）。我们需要判断<code>upvoted/downvote</code>的真/假，然后判断是否需要添加<code>disabled</code>的class。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 如果 upvoted === true, 添加 disabled class --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-up"</span> @<span class="attr">click</span>=<span class="string">"upvote"</span> <span class="attr">:class</span>=<span class="string">"&#123;disabled: upvoted&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 如果 the downvoted === true, 添加 disabled class --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-chevron-down"</span> @<span class="attr">click</span>=<span class="string">"downvote"</span> <span class="attr">:class</span>=<span class="string">"&#123;disabled: downvoted&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在我们的类似Reddit的文章管理系统已经基本完成了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>现在我们已经了解了Vue关于组件的基础知识：通过<code>props</code>传递数据、通过<code>&lt;template&gt;</code>标签创建模板。然后我们还利用所学知识编写了一个类似Reddit的文章管理系统。</p>
+<p>用几点需要注意的是：</p>
+<ul>
+<li>记住要申明想在子组件中获得的数据（<code>props: [&#39;post&#39;</code>）</li>
+<li>使用<code>props</code>绑定数据，通过<code>v-bind</code>绑定数据，或者缩写(<code>:post=&quot;post&quot;</code>)</li>
+<li>为了确保组件的独立，我们需要把<code>data</code>对象放在函数的返回值中。</li>
+<li>别忘了Vue根实例，我们还地需要在根实例中显示子组件呢。</li>
+</ul>
+<p>#EOF#</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/04/27/VueJs-The-Basics/" data-toggle="tooltip" data-placement="top" title="千里之堤：VueJs基础[译]">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/04/29/VueJs-Components/"
+                        data-title="VueJs组件[译]"
+                        data-url="http://blog.j3n5en.com/2016/04/29/VueJs-Components/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                          <a class="tag" href="/tags/#front-end" title="front-end">front-end</a>
+                        
+                          <a class="tag" href="/tags/#VueJs" title="VueJs">VueJs</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

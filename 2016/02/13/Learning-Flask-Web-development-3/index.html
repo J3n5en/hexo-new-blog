@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之三 - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/13/Learning-Flask-Web-development-3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Flask" title="Flask">Flask</a>
+                        
+                    </div>
+                    <h1>《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之三</h1>
+                    <h2 class="subheading">undefined</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-13
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><p>​        今天是计划的第三天。ok~继续！</p>
+<h2 id="第三章、Web表单"><a href="#第三章、Web表单" class="headerlink" title="第三章、Web表单"></a>第三章、Web表单</h2><p>这里主要讲得是Flask-WTF扩展的使用。</p>
+<p>安装: <code>pip install flask-wtf</code> </p>
+<h3 id="1-跨站请求伪造-CSRF-保护"><a href="#1-跨站请求伪造-CSRF-保护" class="headerlink" title="1. 跨站请求伪造(CSRF)保护"></a>1. 跨站请求伪造(CSRF)保护</h3><p>为了CSRF保护，Flask-WTF需要程序设置一个密钥。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#hello.py</span></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[<span class="string">'SECRET_KEY'</span>] = <span class="string">'Some string,By J3n5n'</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  app.config字典可以用来存储框架、扩展、程序的配置变量。</p>
+</blockquote>
+<h3 id="2-表单类"><a href="#2-表单类" class="headerlink" title="2. 表单类"></a>2. 表单类</h3><p>在Flask-WTF里，每个表单都由一个继承自Form的类表示，这个类定义表单中的一组字段。每个字段都用对象表示。字段对象可以附属一个或多个验证函数。验证函数用来验证用户提交的输入是否符合要求。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask.ext.wtf <span class="keyword">import</span> Form</span><br><span class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> StringField, SubmitField</span><br><span class="line"><span class="keyword">from</span> wtfforms.validators <span class="keyword">import</span> Required</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NameForm</span><span class="params">(Form)</span>:</span></span><br><span class="line">  name = StringField(<span class="string">u'请输入您的用户名'</span>, validators=[Required()]) <span class="comment"># 文本字段 相当于&lt;input&gt;中的 type='text' 。 </span></span><br><span class="line">  submit = SubmitField(<span class="string">u'提交'</span>) <span class="comment"># 提交按钮 相当于&lt;input&gt;中的type='submit'</span></span><br></pre></td></tr></table></figure>
+<p><code>StringField</code> 构造函数中的可选参数validators指定一个有验证函数组成的列表，在接受用户提交的数据之前验证数据。验证函数Required()确保提交的字段不为空。</p>
+<p>WTForms支持的HTML标准字段</p>
+<table>
+<thead>
+<tr>
+<th>字段类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>StringField</td>
+<td>文本字段</td>
+</tr>
+<tr>
+<td>TextAreaField</td>
+<td>多行文本字段</td>
+</tr>
+<tr>
+<td>PasswordField</td>
+<td>密码文本字段</td>
+</tr>
+<tr>
+<td>HiddenField</td>
+<td>隐藏文本字段</td>
+</tr>
+<tr>
+<td>DateField</td>
+<td>文本字段，datetime.date</td>
+</tr>
+<tr>
+<td>DateTimeField</td>
+<td>文本字段，datetime.datetime</td>
+</tr>
+<tr>
+<td>IntegerField</td>
+<td>文本字段，整数</td>
+</tr>
+<tr>
+<td>DecimalField</td>
+<td>文本字段，decimal.Decimal</td>
+</tr>
+<tr>
+<td>FloatField</td>
+<td>文本字段，浮点</td>
+</tr>
+<tr>
+<td>BooleanField</td>
+<td>复选框，True/False</td>
+</tr>
+<tr>
+<td>RadioField</td>
+<td>一组单选框</td>
+</tr>
+<tr>
+<td>SelectMultipleField</td>
+<td>下拉列表，可多选</td>
+</tr>
+<tr>
+<td>SelectField</td>
+<td>下拉列表</td>
+</tr>
+<tr>
+<td>FileField</td>
+<td>文件上传字段</td>
+</tr>
+<tr>
+<td>submitField</td>
+<td>提交按钮</td>
+</tr>
+<tr>
+<td>FormField</td>
+<td>把表单作为一个表单，嵌入另一个表单</td>
+</tr>
+<tr>
+<td>FieldList</td>
+<td>一组指定类型的字段</td>
+</tr>
+</tbody>
+</table>
+<p>WTForms内建的验证函数</p>
+<table>
+<thead>
+<tr>
+<th>验证函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Email</td>
+<td>验证Email</td>
+</tr>
+<tr>
+<td>EqualTo</td>
+<td>比较两个字段的值</td>
+</tr>
+<tr>
+<td>IPAddress</td>
+<td>验证IPv4网络地址</td>
+</tr>
+<tr>
+<td>Length</td>
+<td>验证长度</td>
+</tr>
+<tr>
+<td>NumberRange</td>
+<td>数字范围</td>
+</tr>
+<tr>
+<td>Optional</td>
+<td>无输入值时跳过其他函数</td>
+</tr>
+<tr>
+<td>Required</td>
+<td>确保不为空</td>
+</tr>
+<tr>
+<td>Regexp</td>
+<td>使用正则验证输入值</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>验证URL</td>
+</tr>
+<tr>
+<td>AnyOf</td>
+<td>确保输入值在可选的列表中</td>
+</tr>
+<tr>
+<td>NoneOf</td>
+<td>确保输入值不在可选的列表中</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-把表单渲染成HTML"><a href="#3-把表单渲染成HTML" class="headerlink" title="3. 把表单渲染成HTML"></a>3. 把表单渲染成HTML</h3><p>假设视图函数把一个NameForm实例通过参数form传入模板，在模板中可以生成一个简单的表单</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;form method=&apos;POST&apos;&gt;</span><br><span class="line">  &#123;&#123; form.hidden_tag() &#125;&#125;</span><br><span class="line">  &#123;&#123; form.name.label &#125;&#125;&#123;&#123; form.name() &#125;&#125;</span><br><span class="line">  &#123;&#123; form.submit() &#125;&#125;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>那我们怎么为字段指定id和class呢?</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;form method=&apos;POST&apos;&gt;</span><br><span class="line">  &#123;&#123; form.name.label &#125;&#125;&#123;&#123; form.name(id=&apos;username&apos;) &#125;&#125;</span><br><span class="line">  &#123;&#123; form.submit() &#125;&#125;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-在视图函数中处理表单"><a href="#4-在视图函数中处理表单" class="headerlink" title="4. 在视图函数中处理表单"></a>4. 在视图函数中处理表单</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#hello.py</span></span><br><span class="line"><span class="meta">@app.route('/',method=['GET', 'POSt'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">  name = <span class="keyword">None</span></span><br><span class="line">  form = NameForm()</span><br><span class="line">  <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">    name = form.name.data</span><br><span class="line">    form.name.data = <span class="string">''</span></span><br><span class="line">  <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>, form=form, name=name)</span><br></pre></td></tr></table></figure>
+<p>  <code>validate_on_submit()</code> 会验证所有用户提交的数据。符合这返回<code>True</code>.</p>
+<h3 id="5-重定向和用户会话"><a href="#5-重定向和用户会话" class="headerlink" title="5. 重定向和用户会话"></a>5. 重定向和用户会话</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@app.route('/',method=['GET','POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">  form = NameForm()</span><br><span class="line">  <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">    session[<span class="string">'name'</span>] = form.name.data</span><br><span class="line">    <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line">  <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>,form=form,name=session.get(<span class="string">'name'</span>))</span><br></pre></td></tr></table></figure>
+<p><code>session.get(&#39;name&#39;)</code> 会从会话中读取name参数的值。当值不存在时返回None而不是返回异常。</p>
+<h3 id="6-Flash消息"><a href="#6-Flash消息" class="headerlink" title="6. Flash消息"></a>6. Flash消息</h3><p>一般请求完成后，需要用户知道状态发生了变化，就像是确认信息，错误信息，警告，提示，之类的。这种功能就是Flah消息的核心特性。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,render_template, session, redirect, url_for, flash</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">  form = NameForm()</span><br><span class="line">  <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">    old_name = session.get(<span class="string">'name'</span>)</span><br><span class="line">    <span class="keyword">if</span> old_name <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> old_name != form.name.date:</span><br><span class="line">      flash(<span class="string">u'修改了用户名'</span>)</span><br><span class="line">    session[<span class="string">'name'</span>] = form.name.data</span><br><span class="line">    <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line"><span class="keyword">return</span> render_template(<span class="string">'index.html'</span>,form=form, name=session.get(<span class="string">'name'</span>))</span><br></pre></td></tr></table></figure>
+<p>仅仅调用Flash并不能把消息显示出来。还需要把<code>get_flashed_messages()</code> 函数开放给模板，用来获取渲染消息。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% block content %&#125;</span><br><span class="line">&lt;div class=&apos;container&apos;&gt;</span><br><span class="line">	&#123;% for msg in get_flashed_messages() %&#125;</span><br><span class="line">    	&#123;&#123;msg&#125;&#125;</span><br><span class="line">        ....</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  Happy Hacking ! </p>
+</blockquote>
+<p># EOF #</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/14/Learning-Flask-Web-development-4/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之四">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/12/Learning-Flask-Web-development-2/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之二">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/13/Learning-Flask-Web-development-3/"
+                        data-title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之三"
+                        data-url="http://blog.j3n5en.com/2016/02/13/Learning-Flask-Web-development-3/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Flask" title="Flask">Flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/page/2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>J3n5en&#39;s Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">Dreamer and Front-end/Python Developer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2016/02/11/Learning-Flask-Web-development-1/">
+        <h2 class="post-title">
+            《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之一
+        </h2>
+        
+        <div class="post-content-preview">
+             ​        今天是大年初一,我将在这几天里,每天抽出至少100分钟来学习Flask Web开发，并记录过程。
+所读教材:《Flask Web 开发》
+使用编辑器：Pycharm。
+编程环境：win10 + Python2.7
+第一章
+安装
+  安装Flask和安装其他Python包一样可以使用pip进行快速的安装pip install flask
+
+
+
+Flask 程序的初始化
+​ ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-11
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/10/Time-waits-for-no-one/">
+        <h2 class="post-title">
+            Time waits for no one. —— 《穿梭时空的少女》观后感
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Time waits for no one.
+            </h3>
+        
+        <div class="post-content-preview">
+             var aplayer0 = new APlayer({element: document.getElementById("aplayer0"),narrow: false,autoplay: true,showlrc: 0,music : {title: "time waits for no one",author: "",url: "/music/time-waits-for-no-o......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-10
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/09/travel-to-wuhan/">
+        <h2 class="post-title">
+            记2016/01/15~19武汉游
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Take a break and keep on.
+            </h3>
+        
+        <div class="post-content-preview">
+             习惯了说走就走的旅行，这次旅行可谓是“密谋已久”，还没开始考试就在惦记，也一直在想象会不会发生有趣的故事。啊哈哈哈。
+
+Take a break and keep on.
+
+生活忙忙碌碌，为何不休息一下再继续呢？其实这次去武汉是我第一次坐火车，一直认为火车是“脏乱差”的代名词，其实还好啦，不过坐了10几个小时火车的我们，其实也是萌萌哒的。第一站是湖北省博物馆。
+平日里整天对着电脑，网络，总......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/09/Using-http2-and-https/">
+        <h2 class="post-title">
+            http2 + https 装逼指南＆Let's Encrypt for nginx使用方法
+        </h2>
+        
+            <h3 class="post-subtitle">
+                http2，Let's Encrypt
+            </h3>
+        
+        <div class="post-content-preview">
+              Let’s Encrypt在2015/12/3开放了公测，先来介绍一下Let’s Encrypt,它是Mozilla、Facebook、Cisco等很多巨头为了推动Web加密而新建的一个项目。more : https://letsencrypt.org/ 来看看我的成果图
+Ｃｏｏｏｏｏｏｌ～先来签证吧。
+由于nginx 默认还不支持nginx自动配置。ｓｏ。手动呗。。git clone ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/09/Django-tdd-development/">
+        <h2 class="post-title">
+            《Python Web开发测试驱动方法》读书笔记之一
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Python，Django，《Python Web开发测试驱动方法》
+            </h3>
+        
+        <div class="post-content-preview">
+             前言:在双十一剁了一本《Python Web开发测试驱动方法》。从11.16看了1、2个星期。感觉吸收的不多。效率太低了。前几天看了个文章叫“写作驱动学习”。感觉有点道理。so，决定重头再看，一边看一边写笔记。希望能有不错的效果。
+环境：debian + python3 + django1.9 + selenium
+我的情况：懂python（在写这篇文章之前一直用python2），略懂dj......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/09/Django-tdd-development-3/">
+        <h2 class="post-title">
+            《Python Web开发测试驱动方法》读书笔记之三
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Python，Django，《Python Web开发测试驱动方法》
+            </h3>
+        
+        <div class="post-content-preview">
+             上一篇博文中，我们利用作弊的代码把用户的输入写死了，欺骗了测试joy。很明显这是不可行的。那么我们要怎么做的？其实我们需要让用户的点击变成一个请求，然后让django接受到这个请求并保存起来，最后渲染到模板。这篇博文主要记录的有“编写表单，发送请求”、“服务器处理请求”、“模板渲染变量”还有“Django的ORM和模型”。一、编写表单、发送请求。这里我们编写表单，让用户的输入和提交变为PO......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/09/Django-tdd-development-2/">
+        <h2 class="post-title">
+            《Python Web开发测试驱动方法》读书笔记之二
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Python，Django，《Python Web开发测试驱动方法》
+            </h3>
+        
+        <div class="post-content-preview">
+             前一篇笔记中,我们已经实际演练了基本的TDD流程,那么这篇笔记我们就先来谈谈编写这些测试的用处吧。
+相信很多的读者和心中存在很多疑问:
+
+编写的测试会不会有点多,
+测试好像有点重复了吧.? 单元测试和功能测试里面
+每次修改都要循环”单元测试/编写代码”,这有必要吗?这里把项目开发比喻成用绳子在水井里面打一桶水.
+
+如果井不是很深,那么打起水来是比较简单的  ( 就是说在开发小型项目的时候,......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/09/away-from-F5-browsersync/">
+        <h2 class="post-title">
+            解放F5 —— browsersync
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Javascripe，coffeescript
+            </h3>
+        
+        <div class="post-content-preview">
+             嘤嘤嘤…..双十一剁手剁了一个显示屏,想右边打代码左边即时显示….
+这时可能会想到livereoad ~ ~……的确,配合浏览器插件来使用,livereload是一个很好用的自动刷新软件. 
+但是这篇博文的主角是 “browsersync” 一个更新,更方便的开发工具… 这里给出中文网 http://www.browsersync.cn
+Browsersync可以在不同的浏览器,不同设备下......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-09
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/08/coding-JS-as-python-coffeescript/">
+        <h2 class="post-title">
+            像写Python/Ruby一样写Javascript——coffeescript 
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Javascripe，coffeescript
+            </h3>
+        
+        <div class="post-content-preview">
+             作为一名Pyer，我非常python的简洁语法。也希望在写前端JS是能用到类似他的语法。。。。于是碰到了coffeescript。coffeescript能让我们编写更少的代码，使得语言特性更强。其实最爽的是写js让我感觉我在写python，不用再管那些麻烦的符号。。哇哈哈哈。。。。。
+那么壮士，让我们干了这杯热 ~~ 翔 ~~  咖啡吧。。
+
+我们先来看看官方给的demo
+左边是 Cof......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2016/02/07/Using-simditor-on-django/">
+        <h2 class="post-title">
+            在Django中使用Simditor
+        </h2>
+        
+            <h3 class="post-subtitle">
+                Python，Django，Simditor
+            </h3>
+        
+        <div class="post-content-preview">
+             之前我的博客一直用的是DjangoUeditor作为我的富文本编辑器，然而由于种种原因 djangoueditor 的代码高亮失效了，
+后来发现了simditor，UI 好有feel，就懒得改 djangoueditor 了，，直接换 simeditor，，，在这里记录一些过程。。。。
+
+来来来，，，，我们先看看她那撩人的外表
+开始结合吧！！
+#admin.py#引入simditor文件f......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by J3n5en on
+        2016-02-07
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/">&larr; Newer Posts</a>
+        </li>
+    
+    
+        <li class="next">
+            <a href="/page/3/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+            </div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                            <a href="/tags/#Python" title="Python" rel="13">Python</a>
+                            
+                        
+                            
+                            <a href="/tags/#Django" title="Django" rel="5">Django</a>
+                            
+                        
+                            
+                            <a href="/tags/#Javascript" title="Javascript" rel="5">Javascript</a>
+                            
+                        
+                            
+                            <a href="/tags/#front-end" title="front-end" rel="5">front-end</a>
+                            
+                        
+                            
+                            <a href="/tags/#coffeescript" title="coffeescript" rel="2">coffeescript</a>
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#心情" title="心情" rel="2">心情</a>
+                            
+                        
+                            
+                            <a href="/tags/#日记" title="日记" rel="2">日记</a>
+                            
+                        
+                            
+                            <a href="/tags/#《Python Web开发测试驱动方法》" title="《Python Web开发测试驱动方法》" rel="3">《Python Web开发测试驱动方法》</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#Flask" title="Flask" rel="8">Flask</a>
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#VueJs" title="VueJs" rel="2">VueJs</a>
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+                            <img src="http://ww1.sinaimg.cn/large/6bf00bd8gw1f4nrrsiyx0j20hs0hswes.jpg" />
+                        
+
+                        
+                            <p>Dreamer and Front-end/Python Developer!</p>
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                                <li>
+                                    <a href="/feed.xml">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="http://weibo.com/520wuzixuan">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a target="_blank" href="mailto:admin@j3n5en.com">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+                            
+
+                            
+                                <li>
+                                    <a target="_blank"  href="https://github.com/J3n5en">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+
+
+                            
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

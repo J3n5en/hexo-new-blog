@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之五 - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/15/Learning-Flask-Web-development-5/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Flask" title="Flask">Flask</a>
+                        
+                    </div>
+                    <h1>《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之五</h1>
+                    <h2 class="subheading">undefined</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-15
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><p>​        今天是计划的第五天。今晚顾着看我是歌手，竟然拖到这么晚。。。</p>
+<h3 id="第五章、电子邮件"><a href="#第五章、电子邮件" class="headerlink" title="第五章、电子邮件"></a>第五章、电子邮件</h3><p>很多时候我们都希望我们的程序能通过Email与用户进行交流。在这里我们利用Flask-Mail来实现</p>
+<p>安装 <code>pip install flask-mail</code></p>
+<h4 id="1-Flask-Mail配置"><a href="#1-Flask-Mail配置" class="headerlink" title="1. Flask-Mail配置"></a>1. Flask-Mail配置</h4><p>Flask-Mail SMTP服务器的配置</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAIL_SERVER</td>
+<td>localhost</td>
+<td>Email服务器的ip地址或者主机名</td>
+</tr>
+<tr>
+<td>MAIL_PORT</td>
+<td>25</td>
+<td>Email服务器端口</td>
+</tr>
+<tr>
+<td>MAIL_USE_TLS</td>
+<td>False</td>
+<td>启用传输层安全协议</td>
+</tr>
+<tr>
+<td>MAIL_USE_SSL</td>
+<td>False</td>
+<td>启用安全套接曾协议</td>
+</tr>
+<tr>
+<td>MAIL_USERNAME</td>
+<td>None</td>
+<td>Email用户名</td>
+</tr>
+<tr>
+<td>MAIL_PASSWORD</td>
+<td>None</td>
+<td>Email密码</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask.ext.mail <span class="keyword">import</span> Mail</span><br><span class="line"><span class="comment"># email setting</span></span><br><span class="line">app.config[<span class="string">'MAIL_SERVER'</span>] = <span class="string">'mail.xxx.com'</span></span><br><span class="line">app.config[<span class="string">'MAIL_USERNAME'</span>] = <span class="string">'username'</span></span><br><span class="line">app.config[<span class="string">'MAIL_PASSWORD'</span>] = <span class="string">'pwd'</span></span><br><span class="line">mail = Mail(app) <span class="comment"># 这个要在email setting后面，当初这个坑了我</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  注：在实际生产中我们应该把账号信息等重要信息保存到环境变量中，而不是程序里。</p>
+</blockquote>
+<h3 id="2-在Python-Shell中发送Email"><a href="#2-在Python-Shell中发送Email" class="headerlink" title="2. 在Python Shell中发送Email"></a>2. 在Python Shell中发送Email</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python mail.py shell</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> flask.ext.mail <span class="keyword">import</span> Message</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> mail <span class="keyword">import</span> mail</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>msg = Message(<span class="string">'qweq'</span>,sender=<span class="string">'xxxx@gmail.com'</span>,recipients=[<span class="string">'xxx@qq.com'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>msg.body = <span class="string">'text body'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>msg.html = <span class="string">'&lt;b&gt;HTML&lt;/b&gt; body'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> app.app_context():</span><br><span class="line">  		mail.send(msg)</span><br></pre></td></tr></table></figure>
+<h3 id="3-在程序中集成发送Email功能"><a href="#3-在程序中集成发送Email功能" class="headerlink" title="3. 在程序中集成发送Email功能"></a>3. 在程序中集成发送Email功能</h3><p>为了更方便，更灵活地发送右键，我们可以把程序发送Email的通用部分抽出来定义成一个函数，那么以后我们就可以用Jinja2模板渲染邮件正文。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#mail.py</span></span><br><span class="line"><span class="keyword">from</span> flask.ext.mail <span class="keyword">import</span> Message</span><br><span class="line"></span><br><span class="line">app.config[<span class="string">'FLASKY_MAIL_SUBJECT_PREFIX'</span>] = <span class="string">'[Flasky]'</span></span><br><span class="line">app.config[<span class="string">'FLASKY_MAIL_SENDER'</span>] = <span class="string">'Flasky Admin &lt;flasky@example.com&gt;'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_email</span><span class="params">(to, subject, template, **kwargs)</span>:</span></span><br><span class="line">    msg = Message(app.config[<span class="string">'FLASKY_MAIL_SUBJECT_PREFIX'</span>] + subject,</span><br><span class="line">                  sender=app.config[<span class="string">'FLASKY_MAIL_SENDER'</span>], recipients=[to])</span><br><span class="line">    msg.body = render_template(template + <span class="string">'.txt'</span>, **kwargs)</span><br><span class="line">    msg.html = render_template(template + <span class="string">'.html'</span>, **kwargs)</span><br><span class="line">    mail.send(msg)</span><br></pre></td></tr></table></figure>
+<p>这样我们就能够很简单地调用这个函数进行Email的发送，例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">app.config[<span class="string">'FLASKY_ADMIN'</span>] = os.environ.get(<span class="string">'FLASKY_ADMIN'</span>)</span><br><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="meta">@app.route('/', methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    form = NameForm()</span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line">        user = User.query.filter_by(username=form.name.data).first()</span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            user = User(username=form.name.data)</span><br><span class="line">            db.session.add(user)</span><br><span class="line">            session[<span class="string">'known'</span>] = <span class="keyword">False</span></span><br><span class="line">            <span class="keyword">if</span> app.config[<span class="string">'FLASKY_ADMIN'</span>]:</span><br><span class="line">                send_email(app.config[<span class="string">'FLASKY_ADMIN'</span>], <span class="string">'New User'</span>,</span><br><span class="line">                           <span class="string">'mail/new_user'</span>, user=user)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            session[<span class="string">'known'</span>] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">        session[<span class="string">'name'</span>] = form.name.data</span><br><span class="line">        form.name.data = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">'index'</span>))</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>, form=form, name=session.get(<span class="string">'name'</span>), known=session.get(<span class="string">'known'</span>, <span class="keyword">False</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="4-异步发送Email"><a href="#4-异步发送Email" class="headerlink" title="4. 异步发送Email"></a>4. 异步发送Email</h3><p>在运行上面的例子时，我们可以明显发现发送邮件时，程序被堵塞了，浏览器就像失去了响应一样。为了避免这种情况，我们可以把发送Email的函数移到后台的线程里。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_async_email</span><span class="params">(app, msg)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> app.app_context():</span><br><span class="line">        mail.send(msg)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_email</span><span class="params">(to, subject, template, **kwargs)</span>:</span></span><br><span class="line">    msg = Message(app.config[<span class="string">'FLASKY_MAIL_SUBJECT_PREFIX'</span>] + subject,</span><br><span class="line">                  sender=app.config[<span class="string">'FLASKY_MAIL_SENDER'</span>], recipients=[to])</span><br><span class="line">    msg.body = render_template(template + <span class="string">'.txt'</span>, **kwargs)</span><br><span class="line">    msg.html = render_template(template + <span class="string">'.html'</span>, **kwargs)</span><br><span class="line">    thr = Thread(target=send_async_email, args=[app, msg])</span><br><span class="line">    thr.start()</span><br><span class="line">    <span class="keyword">return</span> thr</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  Happy Hacking ！</p>
+</blockquote>
+<p># EOF #</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/16/Learning-Flask-Web-development-6/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之六">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/14/Learning-Flask-Web-development-4/" data-toggle="tooltip" data-placement="top" title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之四">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/15/Learning-Flask-Web-development-5/"
+                        data-title="《猴年猴赛雷,每天100分钟,学习Flask Web 开发》之五"
+                        data-url="http://blog.j3n5en.com/2016/02/15/Learning-Flask-Web-development-5/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Flask" title="Flask">Flask</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

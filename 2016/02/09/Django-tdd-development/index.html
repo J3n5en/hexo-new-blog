@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dreamer and Front-end/Python Developer">
+    <meta name="keyword"  content="J3n5en,Jensen,Python,Front-end,Django,Flask,Vue.js">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          《Python Web开发测试驱动方法》读书笔记之一 - J3n5en&#39;s Blog | 用宝贵的青春去赌未知的未来。
+        
+    </title>
+
+    <link rel="canonical" href="http://blog.j3n5en.com/2016/02/09/Django-tdd-development/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">J3n5en&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/Resume/">Resume</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('http://ww3.sinaimg.cn/large/6bf00bd8gw1f4nrdmpzp7j21gs0o8q7c.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Django" title="Django">Django</a>
+                        
+                          <a class="tag" href="/tags/#《Python Web开发测试驱动方法》" title="《Python Web开发测试驱动方法》">《Python Web开发测试驱动方法》</a>
+                        
+                    </div>
+                    <h1>《Python Web开发测试驱动方法》读书笔记之一</h1>
+                    <h2 class="subheading">Python，Django，《Python Web开发测试驱动方法》</h2>
+                    <span class="meta">
+                        Posted by J3n5en on
+                        2016-02-09
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <link rel="stylesheet" type="text/css" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js"> </script><h4 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h4><p>在双十一剁了一本《Python Web开发测试驱动方法》。从11.16看了1、2个星期。感觉吸收的不多。效率太低了。前几天看了个文章叫“写作驱动学习”。感觉有点道理。so，决定重头再看，一边看一边写笔记。希望能有不错的效果。</p>
+<p>环境：debian + python3 + django1.9 + selenium</p>
+<p>我的情况：懂python（在写这篇文章之前一直用python2），略懂django</p>
+<h4 id="第一章："><a href="#第一章：" class="headerlink" title="第一章："></a>第一章：</h4><p>TDD ：测试驱动开发（Test-driven development）是极限编程中倡导的程序开发方法，以其倡导先写测试程序，然后编码实现其功能。</p>
+<p>在TDD过程中第一步始终是：编写测试。</p>
+<p>也就是说，我们首先要先编写测试程序，and run，看看是否和预期一样失败，只有失败了才能去编写程序 to fix the error。</p>
+<p>ok～ 介绍TDD就介绍到这里，开始安装django，here we go！<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Firefox()</span><br><span class="line">browser.get(<span class="string">"http://localhost:8000"</span>)</span><br><span class="line"><span class="keyword">assert</span> <span class="string">'Django'</span> <span class="keyword">in</span> browser.title</span><br></pre></td></tr></table></figure></p>
+<p>yo ~man~ what the hell are you doing?? 不是说安装django吗?</p>
+<p>哈哈..看来你又忘了 在TDD过程中第一步始终是：编写测试。恩,跑起来报错了.of course~ 我们还没安装’占狗’嘛~<br>那就安装django ：<br><code>pip install django   # 现在是1.9版本</code><br>为了fix 前一个test的坑，这里我们需要新建一个项目并跑起django<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">django-admin startproject superlists</span><br><span class="line">cd sperlists</span><br><span class="line">manage.py runserver</span><br></pre></td></tr></table></figure></p>
+<p>跑起来后我们再运行测试程序看看。</p>
+<p><img src="/img/post-img/ba180f66-ce7f-11e5-91a1-d75ccc3fbb8d.png" alt="image"></p>
+<p>Cool～ ～测试通过了。</p>
+<p>为了纪念第一次测试成功，我们是不是应该把他保存下来呢？</p>
+<p><a href="https://coding.net/u/jensen/p/Python-web-TDD" target="_blank" rel="external">https://coding.net/u/jensen/p/Python-web-TDD</a></p>
+<p>Cool　～～</p>
+<h4 id="第二章：-使用unittest模块扩展功能测试"><a href="#第二章：-使用unittest模块扩展功能测试" class="headerlink" title="-第二章：　使用unittest模块扩展功能测试"></a>-第二章：　使用unittest模块扩展功能测试</h4><p>ｏｋ～　我们继续完善我们的function_test.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Firefox()</span><br><span class="line"><span class="comment"># j3n5en 进入首页</span></span><br><span class="line">browser.get(<span class="string">"http://localhost:8000"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标题有"TO-Do"字样</span></span><br><span class="line"><span class="keyword">assert</span> <span class="string">'To-Do'</span> <span class="keyword">in</span> browser.title</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在一个文本框输入　"购买显示屏"</span></span><br><span class="line"><span class="comment"># 点击回车，完成输入</span></span><br><span class="line"><span class="comment"># 表格中出现"1、购买显示屏"</span></span><br><span class="line"><span class="comment"># Ｊ再次输入“安装显示屏”</span></span><br><span class="line"><span class="comment"># 页面再次更新</span></span><br><span class="line"><span class="comment"># 页面中显示两条事项</span></span><br><span class="line"><span class="comment"># 滚去睡觉，关闭浏览器</span></span><br><span class="line">browser.quit()</span><br></pre></td></tr></table></figure>
+<p>先做到显示标题有“To-Do”吧。不用说跑起来肯定是失败的（所谓的“预期失败”），然后我们通过自己的努力去修复这个错误。。。哇。。听着就爽。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">➜  superlists :python3 function_test.py   </span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;function_test.py&quot;, line 7, in &lt;module&gt;</span><br><span class="line">    assert &apos;To-Do&apos; in browser.title</span><br><span class="line">AssertionError</span><br></pre></td></tr></table></figure></p>
+<p>不过我们先看看这个错误，我们只看到“AssertionError“这个没什么用的报错，也不知道哪里错，而且跑完了浏览器还是在打开状态。不爽。</p>
+<p>处理方法有很多，但我们这里用unittest模块的现成方法试试去解决他把。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewVisitorTest</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUp</span><span class="params">(self)</span>:</span>   <span class="comment"># 特殊方法，在测试前运行</span></span><br><span class="line">            self.browser = webdriver.Firefox()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span><span class="params">(self)</span>:</span>    <span class="comment"># 特殊方法，在测试完成后运行。出错了也会运行</span></span><br><span class="line">            self.browser.quit()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_can_start_a_list_and_retrieve_it_later</span><span class="params">(self)</span>:</span></span><br><span class="line">            self.browser.get(<span class="string">"http://localhost:8000"</span>)    <span class="comment"># j3n5en 进入首页</span></span><br><span class="line">            self.assertIn(<span class="string">"To-Do"</span>,self.browser.title)        <span class="comment"># 标题有"TO-Do"字样</span></span><br><span class="line">        self.fail(<span class="string">"finish the test!"</span>)     <span class="comment"># 不管是否测试成功都会输出</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    unittest.main(warnings=<span class="string">'ignore'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>恩，跑起来的确完成了想要的效果了。（哪里出错，结束时浏览器关闭）</p>
+<h4 id="隐式等待"><a href="#隐式等待" class="headerlink" title="隐式等待"></a>隐式等待</h4><p>万一机子慢，页面没加载完就进行判断了那怎么办？　　可以加入<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">self.browser = webdriver.Firefox()</span><br><span class="line">self.browser.implicitly_wait(<span class="number">3</span>)　　＃　等待３秒</span><br></pre></td></tr></table></figure></p>
+<p>这样的话就让selenium等待3秒,让页面出现.</p>
+<h4 id="使用单元测试测试简单的首页"><a href="#使用单元测试测试简单的首页" class="headerlink" title="使用单元测试测试简单的首页"></a>使用单元测试测试简单的首页</h4><p>创建django应用<br><code>python3 manage.py startapp lists</code><br>为此app编写一个单元测试</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#lists/tests.py</span></span><br><span class="line"><span class="keyword">from</span> django.core.urlresolvers <span class="keyword">import</span> resolve</span><br><span class="line"><span class="keyword">from</span> lists.views <span class="keyword">import</span> home_page</span><br><span class="line"><span class="keyword">from</span> django.test <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePageTest</span><span class="params">(TestCase)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_root_url_resolves_to_home_page_view</span><span class="params">(self)</span>:</span></span><br><span class="line">        found = resolve(<span class="string">'/'</span>)</span><br></pre></td></tr></table></figure>
+<p>我们测试下解析根目录时，是否能找到home_page函数.明显是不行的,因为我们的url和view都还没写,哇哈哈….<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#superlists/urls/py</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">    url(<span class="string">r'^$'</span>, <span class="string">'lists.views.home_page'</span>, name=<span class="string">"home"</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># lists/views.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">home_page</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>好了,终于有写一点django的代码了….现在我们再来运行一下单元测试吧.<br><img src="/img/post-img/0788aee0-ce80-11e5-99e7-ad390d9fa00c.png" alt="image"><br>cool ~ 测试通过了.</p>
+<h3 id="编写视图层单元测试"><a href="#编写视图层单元测试" class="headerlink" title="编写视图层单元测试"></a>编写视图层单元测试</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># lists/test.py</span></span><br><span class="line"><span class="keyword">from</span> django.core.urlresolvers <span class="keyword">import</span> resolve</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpRequest</span><br><span class="line"><span class="keyword">from</span> lists.views <span class="keyword">import</span> home_page</span><br><span class="line"><span class="keyword">from</span> django.test <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePageTest</span><span class="params">(TestCase)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_root_url_resolves_to_home_page_view</span><span class="params">(self)</span>:</span></span><br><span class="line">        found = resolve(<span class="string">'/'</span>)</span><br><span class="line">        self.assertEqual(found.func, home_page)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_home_page_returns_correct_html</span><span class="params">(self)</span>:</span></span><br><span class="line">        request = HttpRequest()  <span class="comment"># 创建HttpRequest对象(请求后django看到的就是HttpRequest对象)</span></span><br><span class="line">        response = home_page(request)  <span class="comment"># 把HttpRequest对象丢给home_page处理</span></span><br><span class="line">        self.assertTrue(response.content.startswith(<span class="string">b'&lt;html&gt;'</span>))</span><br><span class="line">        self.assertIn(<span class="string">b'&lt;title&gt;To-Do lists&lt;/title&gt;'</span>, response.content)</span><br><span class="line">        self.assertTrue(response.content.endswith(<span class="string">b'&lt;/html&gt;'</span>))</span><br><span class="line"><span class="comment"># 注意b''  因为response.content是原始字符串,而不是python字符串,因此对比时要用b''</span></span><br></pre></td></tr></table></figure>
+<p>运行看看效果,Nope~ ~ TypeError: home_page() takes 0 positional arguments but 1 was given,看到错误了,我们就去编写代码,去修复他..这就是TDD的一个体现: 遇红  –&gt; 变绿 –&gt;  重构</p>
+<p>现在我们遇到了 home_page() takes 0 positional arguments but 1 was given这个红,我们就去编写最少量的代码让他变绿。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># lists/views.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">home_page</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>刚刚说不需要参数,却提供了一个参数,那么我们就使他需要参数.再运行测试看看<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AttributeError: &apos;NoneType&apos; object has no attribute &apos;content&apos;</span><br></pre></td></tr></table></figure></p>
+<p>yes~ 刚刚的红变绿了,,但是又有一个红了。再写<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># lists/views.py</span><br><span class="line">from django.http import HttpResponse</span><br><span class="line">def home_page(request):</span><br><span class="line">    return HttpResponse()</span><br></pre></td></tr></table></figure></p>
+<p>还有红,<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> self.assertTrue(response.content.startswith(b&apos;&lt;html&gt;&apos;))</span><br><span class="line">AssertionError: False is not true</span><br></pre></td></tr></table></figure></p>
+<p>再来一发~  哈哈,,终于全绿了,,,哈哈哈。再跑function_test.py。也是毫无错误。。。</p>
+<p>哈哈，好刺激。成功编写一段HTML。。。。醉了。。</p>
+<p>这一篇文就到这里。。</p>
+<blockquote>
+<p>happy hacking～ ～</p>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/02/09/Using-http2-and-https/" data-toggle="tooltip" data-placement="top" title="http2 + https 装逼指南＆Let's Encrypt for nginx使用方法">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/09/Django-tdd-development-3/" data-toggle="tooltip" data-placement="top" title="《Python Web开发测试驱动方法》读书笔记之三">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="2016/02/09/Django-tdd-development/"
+                        data-title="《Python Web开发测试驱动方法》读书笔记之一"
+                        data-url="http://blog.j3n5en.com/2016/02/09/Django-tdd-development/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                          <a class="tag" href="/tags/#Django" title="Django">Django</a>
+                        
+                          <a class="tag" href="/tags/#《Python Web开发测试驱动方法》" title="《Python Web开发测试驱动方法》">《Python Web开发测试驱动方法》</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://wangyuan.info/">网园资讯工作室官方博客</a></li>
+                    
+                        <li><a href="http://n1cholas.com">N1cholas Blog</a></li>
+                    
+                        <li><a href="http://wyfe.js.org/">网园前端团队博客</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'j3n5en';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/520wuzixuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                
+                    <li>
+                        <a target="_blank"  href="mailto:admin@j3n5en.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/J3n5en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; J3n5en&#39;s Blog 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://blog.j3n5en.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'f2250b38d06973d11a02e7c538691b88';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://blog.j3n5en.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
